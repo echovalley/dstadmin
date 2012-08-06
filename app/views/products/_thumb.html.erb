@@ -1,0 +1,13 @@
+<div class="product_img">
+  <% if @product.avatar? %>
+    <%= image_tag @product.avatar(:thumb) %>
+  <% else %>
+    <%= image_tag 'default_thumb.jpg' %>
+  <% end %>
+  <ul>
+    <li>
+    <% link_title = @product.avatar_file_name.blank? ? '上传产品图片' : '编辑缩略图' %>
+    <%= link_to link_title, upload_product_path, :class => 'icon_upload', :remote => true %>
+    </li>
+  </ul>
+</div>

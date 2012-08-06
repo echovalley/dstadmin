@@ -1,0 +1,9 @@
+<div class="product_link_pic">
+  <h4>此产品目前关联到以下图片：<% link_to '显示所有关联照片', '/products/show_all_related_images' %></h4>
+  <ul>
+  <% @tagged_images.each do |t| %>
+    <li><%= link_to image_tag(t.remote_addr, :alt => t.title), t.locate_url.blank? ? '#' : t.locate_url, :target => '_blank' %></a></li>
+  <% end %>
+  </ul>
+</div>
+<div class="clear"></div>

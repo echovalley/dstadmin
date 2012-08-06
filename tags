@@ -1,0 +1,50 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ActiveSupport	test/test_helper.rb	/^class ActiveSupport::TestCase$/;"	c
+Advertiser	app/models/advertiser.rb	/^class Advertiser < ActiveRecord::Base$/;"	c
+AdvertiserTest	test/unit/advertiser_test.rb	/^class AdvertiserTest < ActiveSupport::TestCase$/;"	c
+AdvertiserUser	app/models/advertiser_user.rb	/^class AdvertiserUser < ActiveRecord::Base$/;"	c
+AdvertiserUserTest	test/unit/advertiser_user_test.rb	/^class AdvertiserUserTest < ActiveSupport::TestCase$/;"	c
+AdvertisersController	app/controllers/advertisers_controller.rb	/^class AdvertisersController < ApplicationController$/;"	c
+AdvertisersControllerTest	test/functional/advertisers_controller_test.rb	/^class AdvertisersControllerTest < ActionController::TestCase$/;"	c
+AdvertisersHelper	app/helpers/advertisers_helper.rb	/^module AdvertisersHelper$/;"	m
+AdvertisersHelperTest	test/unit/helpers/advertisers_helper_test.rb	/^class AdvertisersHelperTest < ActionView::TestCase$/;"	c
+Application	config/application.rb	/^  class Application < Rails::Application$/;"	c	class:Dstadmin
+ApplicationController	app/controllers/application_controller.rb	/^class ApplicationController < ActionController::Base$/;"	c
+ApplicationHelper	app/helpers/application_helper.rb	/^module ApplicationHelper$/;"	m
+BrowsingTest	test/performance/browsing_test.rb	/^class BrowsingTest < ActionDispatch::PerformanceTest$/;"	c
+ChangeUser	db/migrate/20120718144153_change_user.rb	/^class ChangeUser < ActiveRecord::Migration$/;"	c
+ChangeUser2	db/migrate/20120718145306_change_user2.rb	/^class ChangeUser2 < ActiveRecord::Migration$/;"	c
+CreateAdvertiserUsers	db/migrate/20120718091739_create_advertiser_users.rb	/^class CreateAdvertiserUsers < ActiveRecord::Migration$/;"	c
+CreateAdvertisers	db/migrate/20120718084957_create_advertisers.rb	/^class CreateAdvertisers < ActiveRecord::Migration$/;"	c
+CreateUsers	db/migrate/20120718084835_create_users.rb	/^class CreateUsers < ActiveRecord::Migration$/;"	c
+Dstadmin	config/application.rb	/^module Dstadmin$/;"	m
+HomeController	app/controllers/home_controller.rb	/^class HomeController < ApplicationController$/;"	c
+HomeControllerTest	test/functional/home_controller_test.rb	/^class HomeControllerTest < ActionController::TestCase$/;"	c
+HomeHelper	app/helpers/home_helper.rb	/^module HomeHelper$/;"	m
+HomeHelperTest	test/unit/helpers/home_helper_test.rb	/^class HomeHelperTest < ActionView::TestCase$/;"	c
+RemoveCrtTimeFromUsers	db/migrate/20120709123528_remove_crt_time_from_users.rb	/^class RemoveCrtTimeFromUsers < ActiveRecord::Migration$/;"	c
+RenameUcode	db/migrate/20120718081046_rename_ucode.rb	/^class RenameUcode < ActiveRecord::Migration$/;"	c
+User	app/models/user.rb	/^class User < ActiveRecord::Base$/;"	c
+UserTest	test/unit/user_test.rb	/^class UserTest < ActiveSupport::TestCase$/;"	c
+change	db/migrate/20120718081046_rename_ucode.rb	/^  def change$/;"	f	class:RenameUcode
+change	db/migrate/20120718084835_create_users.rb	/^  def change$/;"	f	class:CreateUsers
+change	db/migrate/20120718084957_create_advertisers.rb	/^  def change$/;"	f	class:CreateAdvertisers
+change	db/migrate/20120718091739_create_advertiser_users.rb	/^  def change$/;"	f	class:CreateAdvertiserUsers
+change	db/migrate/20120718144153_change_user.rb	/^  def change$/;"	f	class:ChangeUser
+change	db/migrate/20120718145306_change_user2.rb	/^  def change $/;"	f	class:ChangeUser2
+create	app/controllers/advertisers_controller.rb	/^  def create$/;"	f	class:AdvertisersController
+destroy	app/controllers/advertisers_controller.rb	/^  def destroy$/;"	f	class:AdvertisersController
+down	db/migrate/20120709123528_remove_crt_time_from_users.rb	/^  def down$/;"	f	class:RemoveCrtTimeFromUsers
+edit	app/controllers/advertisers_controller.rb	/^  def edit$/;"	f	class:AdvertisersController
+index	app/controllers/advertisers_controller.rb	/^  def index$/;"	f	class:AdvertisersController
+index	app/controllers/home_controller.rb	/^  def index$/;"	f	class:HomeController
+new	app/controllers/advertisers_controller.rb	/^  def new$/;"	f	class:AdvertisersController
+show	app/controllers/advertisers_controller.rb	/^  def show$/;"	f	class:AdvertisersController
+test_homepage	test/performance/browsing_test.rb	/^  def test_homepage$/;"	f	class:BrowsingTest
+up	db/migrate/20120709123528_remove_crt_time_from_users.rb	/^  def up$/;"	f	class:RemoveCrtTimeFromUsers
+update	app/controllers/advertisers_controller.rb	/^  def update$/;"	f	class:AdvertisersController

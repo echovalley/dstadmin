@@ -1,0 +1,9 @@
+<p id="notice"><%= notice %></p>
+
+<%= render 'thumb' %>
+<div class="product_detail product_addnew">
+  <div class="product_info ">
+    <h4>产品详情：<%= toggle_edit_mode('normal') %></h4>
+  </div>
+  <%= render :partial => 'form' %>
+</div>

@@ -1,0 +1,31 @@
+<h1>Sign In</h1>
+
+<p id="notice"><%= flash[:notice] %></p>
+
+<%= form_tag(authenticate_users_path, :id => 'frmLogin') do %>
+  <ul>
+    <li>
+      <label>请输入登录邮件：</label>
+      <%= email_field_tag 'email', @email.blank? ? '' : @email %>
+    </li>
+    <li>
+      <label>请输入登录密码：</label>
+      <%= password_field_tag 'password' %>
+    </li>
+    <li>
+      <%= submit_tag '提 交', :class => 'btn_green size-max' %>
+    </li>
+  </ul>
+<% end %>
+
+<script>
+$(document).ready(function(){
+  $("form").validate({
+    //debug: true,
+    rules: {
+      email: { required: true, email: true },
+      password: { required: true, minlength: 6 }
+    }
+  });
+});
+</script>  

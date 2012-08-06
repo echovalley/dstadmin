@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  spot_id: 1
+  log_date: 2012-08-01
+  impression: 1
+  click: 1
+  income: 1
+
+two:
+  spot_id: 1
+  log_date: 2012-08-01
+  impression: 1
+  click: 1
+  income: 1

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  wcode: MyString
+  wname: MyString
+  url: MyString
+  pv: 1
+  website_category: 
+  status: 1
+
+two:
+  wcode: MyString
+  wname: MyString
+  url: MyString
+  pv: 1
+  website_category: 
+  status: 1

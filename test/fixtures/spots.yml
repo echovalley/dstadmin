@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  type: 1
+  tagged_image_id: 1
+  margin_x: 1
+  margin_y: 1
+  link_addr: MyString
+  link__title: MyString
+  link_desc: MyString
+  link_thumb: MyString
+  link_css: MyString
+  product_id: 1
+  search_tag: 
+
+two:
+  type: 1
+  tagged_image_id: 1
+  margin_x: 1
+  margin_y: 1
+  link_addr: MyString
+  link__title: MyString
+  link_desc: MyString
+  link_thumb: MyString
+  link_css: MyString
+  product_id: 1
+  search_tag: 

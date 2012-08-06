@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  website_id: 1
+  remote_addr: MyString
+  title: MyString
+  width: 1
+  height: 1
+  thumb: 1
+  access_status: 1
+  spot_by_adv: 1
+  spot_by_adv_rule: 
+
+two:
+  website_id: 1
+  remote_addr: MyString
+  title: MyString
+  width: 1
+  height: 1
+  thumb: 1
+  access_status: 1
+  spot_by_adv: 1
+  spot_by_adv_rule: 

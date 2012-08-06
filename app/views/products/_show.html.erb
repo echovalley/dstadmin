@@ -1,0 +1,71 @@
+<p id="notice"><%= notice %></p>
+
+<%= render 'thumb' %>
+
+<div class="product_detail">
+  <div class="product_info">
+    <h4>产品详情：<%= toggle_edit_mode('edit') %></h4>
+    <ul>
+      <li>
+      <span class="product_info_left">
+        <label>名 称：</label>
+        <%= @product.pname %>
+        <label>编 号：</label>
+        <%= @product.pcode %>
+        <label>状态：</label><span id="product_status"><%= product_status_with_op(@product.status) %></span>
+      </li>
+      <li>
+        <label>品 牌：</label> <%= @product.brand %>
+      </li>
+      <li>
+        <label>简 介：</label>
+        <%= sanitize @product.description %>
+      </li>
+      <li>
+        <label>标 签：</label>
+        <%= render_tags(@product.tags) %>
+      </li>
+      <li>
+        <label>价 格：</label>
+        <%= @product.pdct_price %>元
+      </li>
+      <li>
+        <span class="product_info_left">
+          <label>计 价：</label> <%= product_pricing(@product.pricing) %> <%= @product.unit_price %>元
+        </span>
+        <label>每日上限：</label> <%= product_upper_limit(@product.upper_limit) %>
+      </li>
+      <li>
+        <label>链接地址：</label>
+        <%= link_to @product.click_target, @product.click_target, :target => '_blank' %>
+      </li>
+      <li>
+        <label>投放规则：</label>
+        <%= product_delivery(@product.delivery_type) %>
+      </li>
+  </ul>
+  </div>
+
+  <%= render 'link_images' %>
+
+  <div class="tabs tab_table">
+    <ul>
+      <li class="ui-corner-top ui-tabs-selected">
+      <%= link_to '产品数据统计', 'javascript:void(0)', :class => 'link_statistics', :title => '产品数据统计', :by => 'd' %>
+      </li>
+      <li class="ui-corner-top">
+      <%= link_to '媒体数据统计', 'javascript:void(0)', :class => 'link_statistics', :title => '媒体数据统计', :by => 'w' %>
+      </li>
+      <%#= button_tag '刷 新', :type => 'button', :id => 'btn_refresh_statistics' , :class => 'btn_green size-s', :remote => true -%>
+    </ul>
+    
+    <fieldset>
+      <label>日期选择:</label>
+      <%= select_tag :data_range, options_for_select({'昨天' => 1, '最近7天' => 2, '最近15天' => 3 , '最近30天' => 4 }, 2) %> 
+      <input id="dt_start" type="date" value="<%= (Date.today - 7) %>" class="date" /> - <input id="dt_end" type="date" value="<%= Date.today %>" class="date" />
+    </fieldset>
+  </div>
+  <div id="statistics_info">
+    <%= render 'statistics' %>
+  </div>
+</div>

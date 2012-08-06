@@ -1,0 +1,47 @@
+  <table class="table_data">
+    <thead>
+      <tr>
+        <th><% if @by == 'd' %>日期<% else %>网站<% end %></th>
+        <th>产品曝光次数</th>
+        <th>产品点击数</th>
+        <th>击穿率</th>
+        <th>花费数</th>
+        <th>eCPM</th>
+      </tr>
+    </thead>
+    <% if @statistics.present? %>
+    <tbody>
+    <% @statistics.each do |t| %>
+      <tr>
+       
+      <td><% if @by == 'w' %><%= t.website.wname %><% else %><%= t.log_date.to_s(:db) %><% end %></td>
+        <td><%= t.impression %></td>
+        <td><%= t.click %></td>
+        <td><%= number_to_percentage(t.click.to_f/t.impression.to_f) if t.impression.present? && t.click.present? %></td>
+        <td><%= t.income %></td>
+        <td><%= number_to_currency(t.income.to_f/t.impression.to_f, :precision => 3, :unit=>"￥") if t.impression.present? && t.income.present? %></td>
+      </tr>
+    <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>合计：</td>
+        <td><%= @total_impressions %></td>
+        <td><%= @total_clicks %></td>
+        <td><%= number_to_percentage(@total_clicks.to_f/@total_impressions.to_f) if @total_impressions.present? && @total_clicks.present? %></td>
+        <td><%= @total_incomes %></td>
+        <td><%= number_to_currency(@total_incomes.to_f/@total_impressions.to_f, :precision => 3, :unit=>"￥") if @total_impressions.present? && @total_incomes.present? %></td>
+      </tr>
+    </tfoot>
+    <% else %>
+    <tbody>
+      <tr>
+        <td colspan=6 style="height:50px" align="middle">没有数据</td>
+      </tr>
+    </tbody>
+    <% end %>
+  </table>
+
+  <nav class="page">
+    <%= will_paginate @statistics, :class => 'pagination pagenavi', :previous_label => '上一页', :next_label => '下一页' %>
+  </nav>

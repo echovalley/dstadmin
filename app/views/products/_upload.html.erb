@@ -1,0 +1,24 @@
+<p id="notice"><%= flash[:notice] %></p>
+<% if @product.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+    <ul>
+    <% @product.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+<div style="height:500px">
+  <% if @product.avatar_file_name.present? %>
+    <%= image_tag @product.avatar(:thumb) %>
+  <% else %>
+    <%= image_tag 'default_thumb.jpg' %>
+  <% end %>
+  <%= form_for @product, :url => upload_avatar_product_path, :html => { :multipart => true } do |f| %>
+    <%= f.file_field :avatar %>
+    <%= f.submit '上 传', :class => 'btn_green size-max' %>
+  <% end %>
+</div>
+

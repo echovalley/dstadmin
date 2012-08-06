@@ -1,0 +1,78 @@
+<%= form_for(@product, :remote => true, :html => {:id => "product_info"}) do |f| %>
+  <% if @product.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+    <ul>
+    <% @product.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <ul>
+    <li>
+      <%= f.label :pname, '名称：' %>
+      <%= f.text_field :pname %>
+      <%= form_notice('请输入产品的名称，尽量不超过8个字') %>
+	  </li>
+    <li>
+      <%= f.label :brand, '品牌：' %>
+      <%= f.text_field :brand %>
+      <%= form_notice('请输入产品的品牌') %>
+    </li>
+    <li>
+      <%= f.label :description, '简介：' %>
+      <%= f.text_area :description, :rows => 5 %>
+    </li>
+    <li>
+      <label>标签：</label>
+      <%= text_field_tag 'tags', render_tags_text(@product.tags) %>
+      <%= form_notice('请精确输入产品的标签(多个标签用空格隔开)，以便我们精确匹配图片') %>
+    </li>
+    <li>
+      <%= f.label :pdct_price, '价格：' %>
+      <%= f.number_field :pdct_price %>
+    </li>
+    <li>
+      <%= f.label :pricing, '计价方式：' %>
+      <%= f.select :pricing, [['CPC',1],['CPA',2],['CPS',3]] %> 
+      <%= f.number_field :unit_price, :class => 'width1' %>
+      <%= f.label :upper_limit, ' 每日上限：', :style => 'margin-left:70px' %>
+      <%= f.text_field :upper_limit, :class => 'width1' %>
+    </li>
+    <li>
+      <%= f.label :click_target, '链接地址：' %>
+      <%= f.url_field :click_target %>
+      <%= form_notice('请输入产品的链接地址') %>
+    </li>
+    <li>
+      <%= f.label :delivery_type, '投放规则：' %>
+      <%= f.select :delivery_type, [['允许任何网站投放',1],['限定媒体类别投放',2],['限定网站投放',3]] %>
+    </li>
+    <li>
+      <label></label>
+      <%= f.text_area :delivery_rule, :rows => 5 %>
+      <%= form_notice('一行一条') %>
+    </li>
+    <li>
+      <label></label>
+      <%= f.submit '提 交', :class => 'btn_green size-max' %>
+    </li>
+  </ul>
+<% end %>
+
+
+<script>
+$(document).ready(function(){
+  $("#product_info").validate({
+    //debug: true,
+    rules: {
+      'product[pname]': { required: true },
+      'product[brand]': { required: true },
+      'tags': { required: true },
+      'product[click_target]': { required: true }
+    }
+  });
+});
+</script>  

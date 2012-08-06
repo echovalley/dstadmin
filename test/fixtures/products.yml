@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  pcode: MyString
+  pname: MyString
+  brand: MyString
+  description: MyText
+  pdct_price: 9.99
+  upper_limit: 9.99
+  pricing: 1
+  pdct_thumb: MyString
+  click_target: MyString
+  delivery_type: 1
+  delivery_rule: MyText
+  status: 1
+
+two:
+  pcode: MyString
+  pname: MyString
+  brand: MyString
+  description: MyText
+  pdct_price: 9.99
+  upper_limit: 9.99
+  pricing: 1
+  pdct_thumb: MyString
+  click_target: MyString
+  delivery_type: 1
+  delivery_rule: MyText
+  status: 1
