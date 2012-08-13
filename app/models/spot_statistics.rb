@@ -6,31 +6,40 @@ class SpotStatistics < ActiveRecord::Base
 
   def self.search(options = {})
     group_by = options[:group]
-    start_date = options[:start_date]
-    end_date = options[:end_date]
+    group_by = [group_by] if group_by.is_a? String 
 
-    start_date = '2012-01-01'.to_date if start_date.blank?
-    end_date = Time.now.to_date if end_date.blank?
+    order_by = options[:order]
+    order_by = [order_by] if order_by.is_a? String 
 
-    aggregation_columns = "sum(impression) as impression, sum(click) as click, sum(income) as income "
-    entity_name = nil
-    entity_id = nil
-    options.each_key do |k| 
-      unless k =~ /start_date|end_date|group/
-        entity_name = k.to_s
-        entity_id = options[k]
-        break
-      end
-    end
+    start_date = options[:start_date].blank? ? default_start_date : options[:start_date]
+    end_date = options[:end_date].blank? ? default_end_date : options[:end_date]
+    advertiser_id = options[:advertiser_id]
 
-    aggregation_columns += ", " + entity_name
-    aggregation_columns += ", " + group_by if group_by.present? && group_by != entity_name 
+    columns = ['sum(impression) as impression', 'sum(click) as click', 'sum(income) as income']
+    group_by.each { |t| columns << t } if group_by.present?
 
-    if group_by.present?
-      SpotStatistics.where(entity_name => entity_id, :log_date => (start_date)..(end_date)).select(aggregation_columns).group(group_by).all
-    else
-      SpotStatistics.where(entity_name => entity_id, :log_date => (start_date)..(end_date)).select(aggregation_columns).all
-    end
+    conditions = {:log_date => (start_date) .. (end_date)}
+    ['product_id', 'website_id', 'spot_id'].each { |t| conditions[t.to_sym] = options[t.to_sym] if options[t.to_sym].present? }
 
+    conditions[:products] = {:advertiser_id => advertiser_id} if advertiser_id.present?
+
+    relation = SpotStatistics.select(columns)
+    relation = relation.joins(:product) if advertiser_id.present?
+    relation.where(conditions).group(group_by).order(order_by)
+  end
+
+  def self.search_by_advertiser(advertiser_id, options = {})
+    options[:advertiser_id] = advertiser_id
+    search(options)
+  end
+
+private
+
+  def self.default_start_date
+    Date.today - 7
+  end
+
+  def self.default_end_date
+    Date.today
   end
 end

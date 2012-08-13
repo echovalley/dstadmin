@@ -12,7 +12,7 @@ class Product < ActiveRecord::Base
     
   has_and_belongs_to_many :tags
   belongs_to :advertiser
-  has_many :products
+  has_many :spots
 
   validates_presence_of :pname, :pricing, :unit_price, :pdct_price, :delivery_type, :click_target, :advertiser
   validates :pcode, :uniqueness => true
@@ -60,6 +60,15 @@ class Product < ActiveRecord::Base
     else
       self.status = STATUS_ACTIVE
     end
+  end
+
+  #Count how many products have been linked to spots
+  def self.count_products_spotted_by_advertiser(advertiser_id)
+    Product.joins(:spots).where(:advertiser_id => advertiser_id).count(:id, :distinct => true)
+  end
+
+  def self.count_products_by_advertiser(advertiser_id)
+    Product.where(:advertiser_id => advertiser_id).count
   end
 
   #private

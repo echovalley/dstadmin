@@ -6,4 +6,11 @@
     <%= render :partial => 'init' %>
   </div>
 </div>
-
+<script>
+$(document).ready(function(){
+  var s = window.location.hash;
+  if (s == '#new') {
+    $('.icon_product a:first').trigger('click');
+  }
+});
+</script>  

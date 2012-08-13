@@ -16,18 +16,19 @@
 //= require bootstrap.min
 //= require jquery.validate.min
 //= require messages_cn
+//= require jquery.flot
+//= require jquery.flot.time
 
 $(document).ready(function() {
-  $(".pagination a").attr("data-remote", "true");
+  $('.pagination a').attr('data-remote', 'true');
 });
 
 jQuery.validator.setDefaults({  
   onfocusout: false,
-  errorElement: "em",
+  errorElement: 'em',
   errorPlacement: function(error, element) {
     error.appendTo(element.parent());
     error.css('margin-left', '10px');
     error.css('background-color', '#00ff00');
   },
 });
-

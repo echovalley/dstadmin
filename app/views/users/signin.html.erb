@@ -1,31 +1,28 @@
-<h1>Sign In</h1>
-
-<p id="notice"><%= flash[:notice] %></p>
-
-<%= form_tag(authenticate_users_path, :id => 'frmLogin') do %>
-  <ul>
-    <li>
-      <label>请输入登录邮件：</label>
-      <%= email_field_tag 'email', @email.blank? ? '' : @email %>
-    </li>
-    <li>
-      <label>请输入登录密码：</label>
-      <%= password_field_tag 'password' %>
-    </li>
-    <li>
-      <%= submit_tag '提 交', :class => 'btn_green size-max' %>
-    </li>
-  </ul>
-<% end %>
-
+<div class="content fixwidth">
+  <!--div class="box_green"> <h3 class="acenter">Email验证成功，请登录！</h3> </div-->
+  <%= notice_div %>
+  <div class="login_area">
+    <h1>用户登录</h1>
+    <div class="box_gray_around login_content">
+      <%= form_tag(authenticate_users_path) do %>
+        <ul>
+          <li><label>登录邮箱</label><%= email_field_tag 'email', @email.blank? ? '' : @email %></li>
+          <li><label>密 码</label><%= password_field_tag 'password' %></li>
+          <li><label></label><%= submit_tag '登 录', :class => 'btn_green size-max' %><span><%= link_to '忘记密码？', forget_password_users_path %></span></li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</div>
 <script>
-$(document).ready(function(){
-  $("form").validate({
-    //debug: true,
-    rules: {
-      email: { required: true, email: true },
-      password: { required: true, minlength: 6 }
-    }
+  $(document).ready(function(){
+    $("form").validate({
+      //debug: true,
+      rules: {
+        email: { required: true, email: true },
+        password: { required: true, minlength: 6 }
+      }
+    });
   });
-});
 </script>  
+<%= notice_javascript %>

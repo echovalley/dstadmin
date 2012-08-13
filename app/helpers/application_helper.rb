@@ -2,20 +2,57 @@
 
 module ApplicationHelper
   def top_menu
-=begin 
     if session[:curadv].present?
-      str += content_tag(:li, :class => 'tag')
-      content_tag(:li, link_to '我的首页', '/advertiser' %></li>
-          <li><%= link_to '我的产品', '/products', :class => 'nav_ad_select' %></li>
-          <li><%= link_to '我的图片', '/' %></li>
-          <li><%= link_to '怎么使用', '/' %></li>
-      p = content_tag(:span, '正常 ')
-      p << link_to('设为暂停', update_status_product_path, :class => 'icon_status_play', :remote => true) 
+      p = content_tag(:li, link_to('我的首页', dashboard_advertiser_path), :class => current_page?(:controller => 'advertisers', :action => 'dashboard') ? 'nav_ad_select' : nil)
+      p << content_tag(:li, link_to('我的产品', products_path), :class => current_page?(:controller => 'products') ? 'nav_ad_select' : nil)
+      p << content_tag(:li, link_to('我的图片', '#'))
+      p << content_tag(:li, link_to('怎么使用', '#'))
     else
-      p = content_tag(:span, '暂停 ')
-      p << link_to('设为正常', update_status_product_path, :class => 'icon_status_pause', :remote => true) 
     end
-=end
+  end
+
+  def login_crumb
+    user = session[:user]
+    if user.present?
+      p = link_to user.email, signin_users_path , :class => 'noborderleft'
+      #p += link_to '消 息', '#'
+      #p += link_to '我的所有网站', '#'
+      p += link_to '登 出', signout_users_path
+    end
+  end
+
+  def notice_div(display = false)
+    content_tag :div, :class => 'alert', :style => display ? nil : 'display:none' do
+      p = content_tag :button, 'x', :class => 'close', :'data-dismiss' => 'alert'
+      p += content_tag :h3, nil, :id => 'notice', :class => 'acenter'
+    end
+  end
+
+  def notice_javascript
+    return nil unless flash.present?
+    javascript_tag do
+      <<-eos
+      $(document).ready(function() {
+        var msg_success = '#{flash[:success]}';
+        var msg_error = '#{flash[:error]}';
+        var msg_info = '#{flash[:info]}';
+        var msg_warning = '#{flash[:warning]}';
+        if (msg_success) {
+          $('#notice').text(msg_success);
+          $('.alert').addClass('alert-success').fadeIn(200);
+        } else if (msg_error) {
+          $('#notice').text(msg_error);
+          $('.alert').addClass('alert-error').fadeIn(200);
+        } else if (msg_info) {
+          $('#notice').text(msg_info);
+          $('.alert').addClass('alert-info').fadeIn(200);
+        } else {
+          $('#notice').text(msg_warning);
+          $('.alert').fadeIn(200);
+        }
+      });
+      eos
+    end
   end
 
 end

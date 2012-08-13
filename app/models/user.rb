@@ -15,15 +15,12 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :websites, :join_table => 'websites_users'
   validates_presence_of :email, :password, :user_type, :user_code, :status
   validates_uniqueness_of :email, :user_code
-  
-  def self.verify(email, password, login_ip)
+
+  def self.verify(email, password)
     user = User.where(:email => email, :password => Utils.sha1(password + 'ad2012spot' + email)).includes(:advertisers, :websites).first
     login_status = nil
     if user.present?
       if user.status == STATUS_ACTIVE
-        user.login_ip = login_ip
-        user.login_count += 1
-        user.save
         login_status = SIGNIN_STATUS_SUCCESS 
       else
         login_status = SIGNIN_STATUS_FROZEN
@@ -34,7 +31,10 @@ class User < ActiveRecord::Base
     {:user => user, :login_status => login_status}
   end
 
-  def get_advertisers
+  def update_login_status(ip)
+    self.login_ip = ip 
+    self.login_count += 1
+    self.save
   end
 
   def update_user_code
@@ -42,13 +42,19 @@ class User < ActiveRecord::Base
   end
 
   def update_password(newpwd)
-    password = Utils.sha1(newpwd + 'ad2012spot' + email)
+    self.password = Utils.sha1(newpwd + 'ad2012spot' + email)
+  end
+
+  def reset_password
+    true_password = Utils.create_random_code(10)
+    self.password = self.update_password(true_password)
+    return true_password
   end
 
   def to_param
     user_code
   end
 
-private
+  private
 
 end

@@ -1,0 +1,17 @@
+<aside class="quick_link_ad">
+<h3>快捷入口</h3>
+<dl>
+  <dt><h4 class="icon_product">产 品<i><em><%= @spotted_number %></em>/<%= @total_number %></i></h4></dt>
+  <dd><%= link_to '登记新产品', products_path + '#new', :class => 'icon_addproduct' %></dd>
+  <dd><%= link_to '管理现有产品', products_path, :class => 'icon_manageproduct' %></dd>
+</dl>
+<!--dl>
+<dt><h4 class="icon_pic">图 片<i><em>34</em>/124</i></h4></dt>
+<dd><a href="#" class="icon_upload">上传新图片</a></dd>
+<dd><a href="#" class="icon_managepic">管理现有图片</a></dd>
+</dl-->
+<dl>
+  <dt><h4 class="icon_pic">用 户</h4></dt>
+  <dd><%= link_to '修改密码', { :action => 'change_password', :controller => 'users', :id => @user }, :class => 'icon_addproduct' %></dd>
+</dl>
+</aside>

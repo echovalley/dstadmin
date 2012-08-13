@@ -1,18 +1,11 @@
 # encoding: utf-8
-class ProductsController < ApplicationController
+class ProductsController < ApplicationController 
 
   ROWS_PRE_PAGE = 5;
-  @current_advertiser_id
-
-  before_filter :check_privilege
-
 
   # GET /products
   def index
-    @products = Product.list(@current_advertiser_id).paginate :page => params[:page], :per_page => ROWS_PRE_PAGE
-    @total_number = get_products_total_number @current_advertiser_id
-    @spotted_number = get_products_spotted_number @current_advertiser_id
-
+    refresh_product_list
     respond_to do |format|
       format.html # index.html.erb
       format.js #index.js.erb
@@ -31,6 +24,9 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       format.js # show.js.erb
+      format.html do
+        refresh_product_list
+      end
     end
   end
 
@@ -40,6 +36,9 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       format.js #new.js.erb
+      format.html do #new.html.erb
+        refresh_product_list
+      end
     end
   end
 
@@ -56,13 +55,15 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(params[:product])
     @product.update_product_code
-    @product.advertiser_id = @current_advertiser_id 
+    @product.advertiser_id = get_current_advertiser_id 
     @product.tags = Tag.get_tags(params[:tags])
 
     respond_to do |format|
       if @product.save
-        format.js { redirect_to :action => 'upload', :id => @product.pcode, notice: 'Product was created' }
+        flash[:success] = '产品保存成功'
+        format.js { redirect_to :action => 'upload', :id => @product.pcode }
       else
+        flash[:error] = '产品保存失败'
         format.js { render 'new' }
       end
     end
@@ -75,8 +76,10 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       if @product.update_attributes(params[:product])
-        format.js { redirect_to @product, notice: 'Product was successfully updated.' }
+        flash[:success] = '产品保存成功'
+        format.js { redirect_to @product }
       else
+        flash[:error] = '产品保存失败'
         format.js { render 'edit' }
       end
     end
@@ -94,13 +97,13 @@ class ProductsController < ApplicationController
 
   # POST /products/search
   def search
-    params[:advertiser_id] = @current_advertiser_id
-    @products = Product.search(params).paginate :page => params[:page], :per_page => ROWS_PRE_PAGE
-    
+    params[:advertiser_id] = get_current_advertiser_id
+    @products = Product.search(params).paginate(:page => params[:page], :per_page => ROWS_PRE_PAGE)
+
     @keyword = params[:keyword]
     @status = params[:status]
-    @total_number = get_products_total_number @current_advertiser_id
-    @spotted_number = get_products_spotted_number @current_advertiser_id
+    @total_number = Product.count_products_by_advertiser get_current_advertiser_id
+    @spotted_number = Product.count_products_spotted_by_advertiser get_current_advertiser_id
 
     respond_to do |format|
       format.js { render 'search' }
@@ -112,7 +115,7 @@ class ProductsController < ApplicationController
     pids = params[:pid]
     pids.each do |t|
       product = Product.find(t)
-      product.destroy if product.present? && product.advertiser_id == @current_advertiser_id
+      product.destroy if product.present? && product.advertiser_id == get_current_advertiser_id
     end
 
     respond_to do |format|
@@ -126,7 +129,7 @@ class ProductsController < ApplicationController
     pids = params[:pid]
     pids.each do |t|
       product = Product.find(t)
-      if product.present? && product.advertiser_id == @current_advertiser_id && product.status != params[:status]
+      if product.present? && product.advertiser_id == get_current_advertiser_id && product.status != params[:status]
         product.status = params[:status]
         product.save
       end
@@ -143,7 +146,7 @@ class ProductsController < ApplicationController
     tags = Tag.get_tags(params[:tags])
     pids.each do |t|
       product = Product.find(t)
-      if product.present? && product.advertiser_id == @current_advertiser_id
+      if product.present? && product.advertiser_id == get_current_advertiser_id
         product.tags = tags
         product.save
       end
@@ -158,15 +161,10 @@ class ProductsController < ApplicationController
   def update_status
     @product = Product.find_by_pcode(params[:id])
     @product.toggle_status
+    @product.save
 
     respond_to do |format|
-      if @product.save
-        format.js
-        #format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-      else
-        #format.html { render action: "edit" }
-        format.js
-      end
+      format.js
     end
   end
 
@@ -182,18 +180,16 @@ class ProductsController < ApplicationController
   # PUT /products/1/upload_avatar
   def upload_avatar
     @product = Product.find_by_pcode(params[:id])
-    @products = Product.list(@current_advertiser_id).paginate :page => params[:page], :per_page => ROWS_PRE_PAGE 
-    @total_number = get_products_total_number @current_advertiser_id
-    @spotted_number = get_products_spotted_number @current_advertiser_id
 
     respond_to do |format|
       if @product.update_attributes(params[:product])
-        @success = 1;
-        flash[:notice] = '成功上传产品图片'
+        flash[:success] = '成功上传产品图片'
+        format.html { redirect_to @product }
       else
-        flash[:notice] = '图片上传失败，请重试'
+        flash[:error] = '图片上传失败，请重试'
+        refresh_product_list
+        format.html { render 'upload_avatar' }
       end
-      format.html { render 'upload_avatar' }
     end
   end
 
@@ -205,23 +201,14 @@ class ProductsController < ApplicationController
     get_product_statistics(@product.id, params[:start_date], params[:end_date], group_by)
 
     respond_to do |format|
-      format.js #index.js.erb
+      format.js
     end
   end
 
-private 
-
-  def get_products_total_number(advertiser_id)
-    Product.where(:advertiser_id => advertiser_id).count
-  end
-
-  def get_products_spotted_number(advertiser_id)
-    0
-  end
+  private 
 
   def get_product_statistics(product_id, start_date, end_date, group_by)
-    @statistics = SpotStatistics.search(:product_id => product_id, :start_date => start_date, :end_date => end_date, :group => group_by)
-      .paginate :page => params[:page], :per_page => ROWS_PRE_PAGE 
+    @statistics = SpotStatistics.search(:product_id => product_id, :start_date => start_date, :end_date => end_date, :group => group_by).paginate(:page => params[:page], :per_page => ROWS_PRE_PAGE)
     @total_impressions = 0
     @total_clicks = 0
     @total_incomes = 0
@@ -233,14 +220,10 @@ private
     end
   end
 
-  def check_privilege
-    if session[:curadv].present? && session[:ucode].present?
-      @current_advertiser_id = session[:curadv]
-    else
-      respond_to do |format|
-        format.html { redirect_to signin_users_path(:backurl => request.url) }
-      end
-    end
+  def refresh_product_list
+    @products = Product.list(get_current_advertiser_id).paginate(:page => params[:page], :per_page => ROWS_PRE_PAGE)
+    @total_number = Product.count_products_by_advertiser get_current_advertiser_id
+    @spotted_number = Product.count_products_spotted_by_advertiser get_current_advertiser_id
   end
 
 end

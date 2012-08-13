@@ -16,25 +16,3 @@ advertiser = Advertiser.create(:code => 'TESTCODE', :name => 'Test Adv', :homepa
 advertiser.users << user
 advertiser.save
 
-Product.destroy_all
-p = Product.new
-p.pname = 'iphone 4s'
-p.pcode = 'abc'
-p.brand = 'apple'
-p.description = 'Change the world again'
-p.pricing = 1
-p.pdct_price = 4999
-p.unit_price = 3.5
-p.upper_limit = 5000
-p.pdct_thumb = nil
-p.click_target = 'http://www.adspot.cn'
-p.delivery_type = 1
-p.delivery_rule = nil
-p.status = 1
-p.save
-
-Tag.destroy_all
-tag = Tag.create(:tname => 'Apple')
-
-p.tags << tag
-p.save

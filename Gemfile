@@ -1,5 +1,5 @@
-#source 'https://rubygems.org'
-source 'http://ruby.taobao.org'
+source 'https://rubygems.org'
+#source 'http://ruby.taobao.org'
 
 gem 'rails', '3.2.6'
 
@@ -16,12 +16,15 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', :platforms => :ruby
+  gem 'therubyracer', :platforms => :ruby
+  #gem "libv8", '~> 3.11.8'
 
   gem 'uglifier', '>= 1.0.3'
 end
 
 gem 'jquery-rails'
+#gem 'cloudfoundry-jquery-rails'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -42,4 +45,6 @@ gem 'will_paginate', '~> 3.0.0'
 gem 'client_side_validations'
 gem "paperclip", "~> 3.0"
 gem "remotipart", "~> 1.0.2"
-gem 'fabrication'
+#gem 'fabrication'
+#gem 'rmagick', :require => false
+gem "galetahub-simple_captcha", :require => "simple_captcha"

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120804135351) do
+ActiveRecord::Schema.define(:version => 20120810202535) do
 
   create_table "advertisers", :force => true do |t|
     t.string   "code",       :limit => 10,                    :null => false
@@ -63,6 +63,15 @@ ActiveRecord::Schema.define(:version => 20120804135351) do
   end
 
   add_index "products_tags", ["product_id", "tag_id"], :name => "by_product_and_tag", :unique => true
+
+  create_table "simple_captcha_data", :force => true do |t|
+    t.string   "key",        :limit => 40
+    t.string   "value",      :limit => 6
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
+  end
+
+  add_index "simple_captcha_data", ["key"], :name => "idx_key"
 
   create_table "spot_statistics", :force => true do |t|
     t.integer "spot_id",                   :null => false

@@ -12,19 +12,11 @@
 		  <div class="logo">Adspot</div>
 		  <nav class="nav_ad">
 		    <ul>
-          <% if session[:curadv].present? %>
-          <li><%= link_to '我的首页', '/' %></li>
-          <li><%= link_to '我的产品', '/products', :class => 'nav_ad_select' %></li>
-          <li><%= link_to '我的图片', '/' %></li>
-          <li><%= link_to '怎么使用', '/' %></li>
-          <% end %>
+          <%= top_menu %>
 		    </ul>
 		  </nav>	
 		  <nav class="nav_login publish_nav">
-        <%= link_to 'Tony', signin_users_path , :class => 'noborderleft' %>
-        <%= link_to '消 息', '/message' %>
-        <%= link_to '我的所有网站', '#' %>
-        <%= link_to '登 出', signout_users_path %>
+        <%= login_crumb %>
 		  </nav>
 		</div>
 	</header>

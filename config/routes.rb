@@ -1,7 +1,6 @@
 Dstadmin::Application.routes.draw do
 
-
-  resources :products do
+  resources :products, :path => 'advertiser/products' do
     collection do
       get 'search'
       post 'batch_destroy'
@@ -19,12 +18,23 @@ Dstadmin::Application.routes.draw do
   resources :users do
     collection do
       get 'signin' => 'users#signin'
-      get 'signout' => 'users#signout'
       post 'signin' => 'users#authenticate', :as => 'authenticate'
+      get 'signout' => 'users#signout'
+      get 'forgetpwd' => 'users#forget_password', :as => 'forget_password'
+      put 'forgetpwd' => 'users#reset_password', :as => 'reset_password'
+    end
+    member do
+      get 'changepwd' => 'users#change_password', :as => 'change_password'
+      put 'changepwd' => 'users#update_password', :as => 'update_password'
     end
   end
 
-  resources :advertisers
+  resources :advertisers do
+  end
+
+
+  match "/advertiser/dashboard" => "advertisers#dashboard", :as => 'dashboard_advertiser', :via => :get
+
 
   get "home/index"
   # The priority is based upon order of creation:

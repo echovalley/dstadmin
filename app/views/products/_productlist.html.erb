@@ -87,6 +87,10 @@
 </div>
 
 <script type='text/javascript'>
+  var batch_destroy_action = '<%= batch_destroy_products_path %>';
+  var batch_update_status_action = '<%= batch_update_status_products_path %>';
+  var batch_update_tags_action = '<%= batch_update_tags_products_path %>';
+
   $('#btnBatchExecute').click(function() {
     var n = $(':checkbox:checked').length;
     if (n == 0) {
@@ -96,7 +100,7 @@
     var opmode = $('#opmode').val();
     var form = $('#frmPdcts');
     if (opmode == 1) {
-      form.attr('action', '/products/batch_destroy');
+      form.attr('action', batch_destroy_action);
       if (window.confirm('确定要删除这些产品吗？（相关报表也会同时删除）')) {
         form.submit();
       }
@@ -106,7 +110,7 @@
       $('#btnChangeStatus').unbind('click');
       $('#btnChangeStatus').click(function() {
         var status = $("#rdStatus:checked").val();
-        form.attr('action', '/products/batch_update_status?status=' + status);
+        form.attr('action', batch_update_status_action + '?status=' + status);
         form.submit();
         $('#set_status_modal').modal('hide');
       });
@@ -116,7 +120,7 @@
       $('#btnChangeTags').unbind('click');
       $('#btnChangeTags').click(function() {
         var tags = $("#tags").val();
-        form.attr('action', '/products/batch_update_tags?tags=' + encodeURIComponent(tags));
+        form.attr('action', batch_update_tags_action + '?tags=' + encodeURIComponent(tags));
         form.submit();
         $('#set_tags_modal').modal('hide');
       });
