@@ -49,6 +49,12 @@ gem "remotipart", "~> 1.0.2"
 #gem 'rmagick', :require => false
 gem "galetahub-simple_captcha", :require => "simple_captcha"
 
+
+group :development, :test do
+  gem 'capistrano'
+  gem 'capistrano-ext'
+end
+
 group :production do
   gem 'pg'
 end
