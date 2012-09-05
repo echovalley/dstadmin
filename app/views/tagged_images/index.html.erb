@@ -1,0 +1,21 @@
+<div class="content">
+  <%= render 'website' %>
+  <%= tagged_images_bar(@website.wcode, @website.tagged_images_number, @website.untagged_images_number) %>
+
+  <div class="head_mypic">
+    <label>图片列表:</label>
+    <%= select_tag :order_by, options_for_select({'按上传时间排序 ' => 1, '按名称排序' => 2}, @order_by.blank? ? 1 : @order_by) %>.
+    <label class="label_headright">图片详细信息：</label>
+  </div>
+
+  <div class="fullwidth">
+    <aside class="publish_left">
+    <%= render 'tagged_image_list' %>
+    </aside>
+
+    <div class="publish_right">
+      Index here
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>

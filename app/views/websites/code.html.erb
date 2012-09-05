@@ -1,0 +1,12 @@
+<%= notice_div %>
+<div class="content fixwidth2">
+  <%= render 'my_websites' %>
+  <%= new_website_crumb('step3') %>
+  <div class="clear"></div>
+  <div class="code_area">
+    <p>请将此段代码复制到您网站下任意页面的body标签前（建议放在head中），则即可在包含此段代码的页面上进行打点操作。</p>
+    <pre class="site_code"><%= h code(@website.wcode) %></pre>
+  </div>
+  <%= link_to '切换到该网站', website_tagged_images_path(@website.wcode) %>
+</div>
+<%= notice_javascript %>

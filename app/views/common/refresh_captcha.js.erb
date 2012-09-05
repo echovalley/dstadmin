@@ -1,0 +1,4 @@
+var li = $('.simple_captcha').parent();
+$('.simple_captcha').remove();
+li.find('style').remove();
+li.find('label').after("<%= escape_javascript(show_simple_captcha :label => '请输入上面的字符') %>");

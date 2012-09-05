@@ -1,0 +1,40 @@
+<table class="table_data">
+  <thead>
+    <tr><th>日期</th><th>照片载入次数</th><th>鼠标移过次数</th><th>锚点载入次数</th><th>点击数</th><th>击穿率</th><th>收益</th><th>eCPM</th></tr>
+  </thead>
+  <% if @statistics.present? %>
+    <tbody>
+      <% @statistics.each do |t| %>
+        <tr>
+          <td><%= t.log_date.to_s(:db) %></td>
+          <td><%= t.impression %></td>
+          <td><%= t.hover %></td>
+          <td><%= t.spots_impression %></td>
+          <td><%= t.spots_click %></td>
+          <td><%= number_to_percentage(t.spots_click.to_f/t.spots_impression.to_f*100) if t.spots_impression.present? && t.spots_click.present? %></td>
+          <td><%= t.spots_income %></td>
+          <td><%= number_to_currency(t.spots_income.to_f/t.spots_impression.to_f, :precision => 3, :unit=>"￥") if t.spots_impression.present? && t.spots_income.present? %></td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>合计：</td>
+        <td><%= @total[:impression] %></td>
+        <td><%= @total[:hover] %></td>
+        <td><%= @total[:spots_impression] %></td>
+        <td><%= @total[:spots_click] %></td>
+        <td><%= number_to_percentage(@total[:spots_click].to_f/@total[:spots_impression].to_f*100) if @total[:spots_impression].present? && @total[:spots_click].present? %></td>
+        <td><%= @total[:spots_income] %></td>
+        <td><%= number_to_currency(@total[:spots_income].to_f/@total[:spots_impression].to_f, :precision => 3, :unit=>"￥") if @total[:spots_income].present? && @total[:spots_impression].present? %></td>
+      </tr>
+    </tfoot>
+  <% else %>
+    <tbody>
+      <tr><td colspan=8>没有数据</td></tr>
+    </tbody>
+  <% end %>
+</table>
+<nav class="page">
+  <%= will_paginate @statistics, :class => 'pagination pagenavi', :previous_label => '上一页', :next_label => '下一页' %>
+</nav>

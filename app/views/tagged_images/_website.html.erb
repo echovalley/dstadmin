@@ -1,0 +1,26 @@
+<div class="head_publishsite">
+  <fieldset class="site_select">
+    <label>选择网站：</label>
+    <%= select_tag :website_wcode, options_from_collection_for_select(@websites, :wcode, :wname) %>
+  </fieldset>
+  <h1><%= @website.wname %><span><label>ID：</label><%= @website.wcode %></span></h1>
+  <ul class="botline info_site">
+    <li><label>网址：</label> <%= @website.url %></li>
+    <li><label>网站日均流量：</label> <%= pv(@website.pv) %></li>
+    <li><label>媒体分类：</label> <%= @website.website_category.wcname %></li>
+    <li class="site_action">
+    <%= link_to '修改信息', edit_website_path(@website.wcode), :class => 'icon_edit' %>
+    <%= link_to '删除网站', destroy_website_path(@website.wcode), :method => :delete, :confirm => '确定删除？所有数据都将被删除', :class => 'icon_delete' %>
+    <%= link_to '获取代码', code_website_path(@website.wcode), :class => 'icon_code' %>
+    </li>
+  </ul>
+  <ul class="number_data">
+    <li><label>照片载入次数：</label><%= @total_images_statistics[:impression] %></li>
+    <li><label>鼠标移过次数：</label><%= @total_images_statistics[:hover] %></li>
+    <li><label>锚点展示次数：</label><%= @total_spots_statistics[:impression] %></li>
+    <li><label>点击数：</label><%= @total_spots_statistics[:click] %></li>
+    <li><label>击穿率：</label><%= number_to_percentage(@total_spots_statistics[:click].to_f/@total_spots_statistics[:impression].to_f*100) if @total_spots_statistics[:impression].present? && @total_spots_statistics[:click].present? %></li>
+    <li><label>收入：</label> <%= @total_spots_statistics[:income] %></li>
+    <li><label>eCPM：</label><%= number_to_currency(@total_spots_statistics[:income].to_f/@total_spots_statistics[:impression].to_f, :precision => 3, :unit=>"￥") if @total_spots_statistics[:impression].present? && @total_spots_statistics[:income].present? %></li>
+  </ul>
+</div>

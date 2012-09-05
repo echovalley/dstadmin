@@ -1,0 +1,87 @@
+<div class="content">
+  <h1 class="title_page">创建新帐户</h1>
+  <div class="tabs margintop12">
+    <div class="fixwidth">
+      <label class="gray">请选择帐户类型</label>
+      <%= nav_signup %>
+    </div>
+  </div>
+  <div class="fixwidth tab1">
+    <div class="form_left">
+      <%= notice_div %>
+      <%= form_tag(:action => 'signup_submit') do %>
+        <ul>
+          <li>
+          <label>登录邮箱</label>
+          <%= email_field_tag 'email', @email.blank? ? '' : @email %>
+          <div class="notice_form"><i class="normal">通过验证后可用于登录和找回密码</i></div>
+          </li>
+          <li>
+          <label>密 码</label>
+          <%= password_field_tag 'password' %>
+          <div class="notice_form"> <i class="normal">密码长度6~14位，字母区分大小写</i> </div>
+          </li>
+          <li>
+          <label>密码确认</label>
+          <%= password_field_tag 'confirm_password' %>
+          <div class="notice_form"><i class="normal"></i> </div>
+          </li>
+          <li>
+          <label>验证码</label>
+          <%= show_simple_captcha :label => '请输入上面的字符' %>
+          <div class="notice_form">
+            <i class="normal">请输入图片中的字符，不区分大小写 <%= link_to '看不清楚？换张图片', refresh_captcha_path, :remote => true %></i>
+          </div>
+          </li>
+          <li>
+          <label></label>
+          <%= check_box_tag 'agree', 'yes', true %>
+          我同意接受 Adspot <a href="#">服务条款</a>和<a href="#">隐私权政策</a> 
+          </li>
+          <li>
+          <label></label>
+          <%= submit_tag '提 交', :class => 'btn_green size-max' %>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+    <div class="form_right">
+      <dl><dt><h3>使用Adspot能给你带来什么</h3></dt>
+        <dd><h5>为你的图片添加丰富的多媒体效果</h5>
+        <p>网站创建成功后，系统会分配给网站一段代码，作为该域名的唯一标识。同时跳转到“代码”页面，做网站验证工作。</p>
+        </dd>
+        <dd><h5>为你的图片添加丰富的多媒体效果</h5>
+        <p>网站创建成功后，系统会分配给网站一段代码，作为该域名的唯一标识。同时跳转到“代码”页面，做网站验证工作。</p>
+        </dd>
+        <dd><h5>为你的图片添加丰富的多媒体效果</h5>
+        <p>网站创建成功后，系统会分配给网站一段代码，作为该域名的唯一标识。同时跳转到“代码”页面，做网站验证工作。</p>
+        </dd>
+      </dl>
+    </div>
+    <div class="clear"></div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    $("form").validate({
+      //debug: true,
+      rules: {
+        'email': { 
+          required: true, email: true, 
+          remote: { url: 'check_email' } 
+        },
+        'password': { required: true, minlength: 6 },
+        'confirm_password': { required: true, equalTo: "#password" }
+      },
+      submitHandler: function(form) {
+        if ($('input:checked').length == 0) {
+          alert('请先接受服务条款');
+          return false;
+        }
+        form.submit();
+      }
+    });
+  });
+</script>  
+<%= notice_javascript %>
