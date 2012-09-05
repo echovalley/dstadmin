@@ -2,8 +2,90 @@
 class UsersController < ApplicationController
 
   before_filter :check_current_user, :only => [:change_password, :update_password]
-  before_filter :check_captcha, :only => [:reset_password]
-  skip_before_filter :check_privilege, :only => [:signin, :signout, :authenticate, :forget_password, :reset_password]
+  before_filter :check_captcha, :only => [:reset_password, :signup_submit]
+  skip_before_filter :check_privilege, :except => [:change_password, :update_password]
+
+  # GET /users/signup
+  def signup
+    respond_to do |format|
+      @email = params[:email]
+      format.html # signup.html.erb
+    end
+  end
+
+  # GET /users/check_email
+  def check_email
+    respond_to do |format|
+      format.html do
+        if User.find_by_email(params[:email])
+          render :text => 'false'
+        else
+          render :text => 'true'
+        end
+      end
+    end
+  end
+
+
+  # POST /users/signup_submit
+  def signup_submit
+    user = User.find_by_email(params[:email])
+    respond_to do |format|
+      if user.blank?
+        user = User.new
+        user.email = params[:email]
+        user.update_password(params[:password])
+        user.initialize_website_user
+        user.save
+        if user.save
+          @email = user.email
+          UserMailer.activation_email(user.email, activate_users_url + '?code=' + user.activation_code).deliver
+          format.html { render 'signup_ok' } 
+        else
+          flash[:error] = '账号创建失败，请稍后重试'
+          format.html { redirect_to :back } 
+        end
+      else
+        flash[:error] = '该账户已经存在'
+        #format.html { redirect_to signin_users_path(:email => params[:email]) }
+        format.html { redirect_to :back, :email => params[:email] }
+      end
+    end
+  end
+
+  # GET /users/activate
+  def activate
+    user = User.find_by_activation_code(params[:code])
+    if user.present? && user.status == User::STATUS_UNACTIVE
+      user.update_attributes(:status => User::STATUS_ACTIVE)
+      @success = 1
+    end
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  # GET /users/send_activation_email
+  def send_activation_email
+    user = User.find_by_email(params[:email])
+    if user.present?
+      user.update_activation_code
+      user.save
+      UserMailer.activation_email(user.email, activate_users_url + '?code=' + user.activation_code).deliver
+      flash[:success] = '已发出验证码'
+      @email = params[:email]
+    else
+      flash[:error] = '无此用户'
+    end
+    format.html
+  end
+
+  # GET /users/signup_adv
+  def signup_adv
+    respond_to do |format|
+      format.html # signup_adv.html.erb
+    end
+  end
 
   # GET /users/signin
   def signin
@@ -29,11 +111,14 @@ class UsersController < ApplicationController
     respond_to do |format|
       if login_status == User::SIGNIN_STATUS_SUCCESS
         reset_session
-        session[:user] = user
+        session[:user] = user.user_code
+        session[:user_email] = user.email
         user.update_login_status(request.ip)
         if user.user_type == User::TYPE_ADVERTISER
           session[:curadv] = user.advertisers[0].id
           format.html { redirect_to dashboard_advertiser_path }
+        elsif user.user_type == User::TYPE_WEBSITE
+          format.html { redirect_to websites_path }
         else
           format.html { head :bad_request }
         end
@@ -42,6 +127,8 @@ class UsersController < ApplicationController
           flash[:error] = '账号或密码不对'
         elsif login_status == User::SIGNIN_STATUS_FROZEN
           flash[:error] = '账号被冻结'
+        elsif login_status == User::SIGNIN_STATUS_UNACTIVE
+          flash[:error] = '账号还没有激活'
         else
           flash[:error] = '账号异常，目前不能登录'
         end
@@ -60,7 +147,7 @@ class UsersController < ApplicationController
 
   # PUT /users/1/changepwd
   def update_password
-    r = User.verify(get_current_user.email, params[:old_password])
+    r = User.verify(User.find_by_user_code(get_current_user).email, params[:old_password])
     user = r[:user]
     login_status = r[:login_status]
 
@@ -108,7 +195,7 @@ class UsersController < ApplicationController
   private
 
   def check_current_user
-    unless params[:id] == get_current_user.user_code
+    unless params[:id] == get_current_user
       respond_to do |format|
         format.html { redirect_to signin_users_path } 
       end

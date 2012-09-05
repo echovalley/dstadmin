@@ -44,6 +44,7 @@ class AdvertisersController < ApplicationController
     @total_number = Product.count_products_by_advertiser get_current_advertiser_id
     @spotted_number = Product.count_products_spotted_by_advertiser get_current_advertiser_id
     @user = get_current_user
+    @login_count = User.find_by_user_code(@user).login_count
     #advertiser = Advertiser.find(get_current_advertiser_id)
    
     get_dashboard_statistics_by_date(start_date, end_date, period) 

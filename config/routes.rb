@@ -15,8 +15,34 @@ Dstadmin::Application.routes.draw do
     end
   end
 
+  resources :websites, :path => 'media/websites' do
+    member do
+      get 'verify' => 'websites#pre_verify', :as => 'verify'
+      get 'create_verify_file'
+      post 'verify' => 'websites#verify', :as => 'verify_process'
+      delete 'destroy' => 'websites#destroy', :as => 'destroy'
+      get 'code' => 'websites#code', :as => 'code'
+    end
+    resources :tagged_images do
+      collection do
+        get 'search'
+      end
+      member do
+        get 'statistics_tagged_image'
+        get 'statistics_spots'
+      end
+    end
+  end
+
   resources :users do
     collection do
+      get 'signup'
+      get 'check_email'
+      post 'signup' => 'users#signup_submit'
+      get 'activate'
+      get 'send_activation_email'
+      get 'signup_adv' => 'users#signup_adv'
+      post 'signup_adv' => 'users#signup_adv_submit'
       get 'signin' => 'users#signin'
       post 'signin' => 'users#authenticate', :as => 'authenticate'
       get 'signout' => 'users#signout'
@@ -34,6 +60,8 @@ Dstadmin::Application.routes.draw do
 
 
   match "/advertiser/dashboard" => "advertisers#dashboard", :as => 'dashboard_advertiser', :via => :get
+  match "/common/refresh_captcha" => "application#refresh_captcha", :as => 'refresh_captcha', :via => :get
+  match "/common/error" => "application#error", :as => 'error', :via => :get
 
 
   get "home/index"

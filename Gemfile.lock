@@ -80,7 +80,6 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (>= 0.0.2)
       mime-types
-    pg (0.14.0)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -108,6 +107,8 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     remotipart (1.0.2)
+    rvm-capistrano (1.2.5)
+      capistrano (>= 2.0.0)
     sass (3.2.0)
     sass-rails (3.2.5)
       railties (~> 3.2.0)
@@ -142,9 +143,9 @@ DEPENDENCIES
   jquery-rails
   mysql2
   paperclip (~> 3.0)
-  pg
   rails (= 3.2.6)
   remotipart (~> 1.0.2)
+  rvm-capistrano
   sass-rails (~> 3.2.3)
   therubyracer
   uglifier (>= 1.0.3)

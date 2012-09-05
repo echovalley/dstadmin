@@ -28,7 +28,7 @@
         <td>合计：</td>
         <td><%= @total_impressions %></td>
         <td><%= @total_clicks %></td>
-        <td><%= number_to_percentage(@total_clicks.to_f/@total_impressions.to_f) if @total_impressions.present? && @total_clicks.present? %></td>
+        <td><%= number_to_percentage(@total_clicks.to_f/@total_impressions.to_f*100) if @total_impressions.present? && @total_clicks.present? %></td>
         <td><%= @total_incomes %></td>
         <td><%= number_to_currency(@total_incomes.to_f/@total_impressions.to_f, :precision => 3, :unit=>"￥") if @total_impressions.present? && @total_incomes.present? %></td>
       </tr>

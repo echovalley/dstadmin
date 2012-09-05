@@ -1,7 +1,7 @@
 <div class="fullwidth">  
   <%= render 'quick_link' %>
   <div class="ad_right">
-    <% if @user.login_count == 1 %>
+    <% if @login_count == 1 %>
     <div class="alert">
       <button type="button" class="close" data-dismiss="alert">×</button>
       <strong>这是您的第一次登录，建议您修改一个方便记忆的密码！<%= link_to '修改密码', { :action => 'change_password', :controller => 'users', :id => @user } %></strong> 

@@ -1,6 +1,10 @@
 # encoding: utf-8
-
 module ApplicationHelper
+
+  def form_notice(message)
+    content_tag(:div, content_tag(:i, message, :class => 'normal'), :class => 'notice_form')
+  end
+
   def top_menu
     if session[:curadv].present?
       p = content_tag(:li, link_to('我的首页', dashboard_advertiser_path), :class => current_page?(:controller => 'advertisers', :action => 'dashboard') ? 'nav_ad_select' : nil)
@@ -12,12 +16,15 @@ module ApplicationHelper
   end
 
   def login_crumb
-    user = session[:user]
-    if user.present?
-      p = link_to user.email, signin_users_path , :class => 'noborderleft'
+    email = session[:user_email]
+    if email.present?
+      p = link_to email, signin_users_path , :class => 'noborderleft'
       #p += link_to '消 息', '#'
-      #p += link_to '我的所有网站', '#'
+      p += link_to '我的所有网站', websites_path if session[:curadv].blank?
       p += link_to '登 出', signout_users_path
+    else
+      p = link_to '免费注册', signup_users_path, :class => 'btn_green size-m'
+      p += link_to '登 入', signin_users_path
     end
   end
 

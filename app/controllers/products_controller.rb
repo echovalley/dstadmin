@@ -1,7 +1,7 @@
 # encoding: utf-8
 class ProductsController < ApplicationController 
 
-  ROWS_PRE_PAGE = 5;
+  ROWS_PRE_PAGE = 5
 
   # GET /products
   def index

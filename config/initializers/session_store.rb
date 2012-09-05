@@ -1,6 +1,6 @@
 # Be sure to restart your server when you modify this file.
 
-Dstadmin::Application.config.session_store :cookie_store, :key => '_dstadmin_session', :expire_after => 10.minutes
+Dstadmin::Application.config.session_store :cookie_store, :key => '_dstadmin_session', :expire_after => 60.minutes
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information

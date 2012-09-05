@@ -16,5 +16,12 @@ module Utils
   def self.sha1(str)
     Digest::SHA1.hexdigest(str)
   end
-  
+
+  def self.get_domain(url)
+    return $1 if url =~ /(\w+[\w-\.]+\.[a-zA-Z]+)/
+  end
+
+  def self.belong_to_domain(sub_domain, main_domain)
+    sub_domain.match(/\.?#{main_domain}$/).present?
+  end
 end

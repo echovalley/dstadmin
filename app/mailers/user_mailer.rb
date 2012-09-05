@@ -7,4 +7,9 @@ class UserMailer < ActionMailer::Base
     @url  = signin_users_url
     mail(:to => email, :subject => "密码重置")
   end
+
+  def activation_email(email, activate_url)
+    @activate_url = activate_url
+    mail(:to => email, :subject => "激活您的密码")
+  end
 end

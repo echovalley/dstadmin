@@ -1,9 +1,6 @@
 # encoding: utf-8
 
 module ProductsHelper
-  def form_notice(message)
-    content_tag(:div, content_tag(:i, message, :class => 'normal'), :class => 'notice_form')
-  end
 
   def product_status(status)
     if status == 1

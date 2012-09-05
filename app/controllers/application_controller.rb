@@ -2,11 +2,25 @@ class ApplicationController < ActionController::Base
 
   include SimpleCaptcha::ControllerHelpers
 
+  before_filter :check_privilege
+  skip_before_filter :check_privilege, :only => [:refresh_captcha]
+
+  # GET /common/refresh_captcha
+  def refresh_captcha
+    respond_to do |format|
+      format.js { render 'common/refresh_captcha' }
+    end
+  end
+
+  def error
+    respond_to do |format|
+      format.html { render 'common/error' }
+    end
+  end
+
 protected
 
   protect_from_forgery
-
-  before_filter :check_privilege
 
   def check_privilege
     if session[:user].blank?

@@ -25,7 +25,7 @@ $("fieldset :date").change(function() {
   refresh_statistics();
 });
 
-function refresh_statistics(start_date, end_date, by) {
+function refresh_statistics() {
   var t = "<%= statistics_product_path %>?start_date=" + $("#dt_start").val() + "&end_date=" + $("#dt_end").val() + "&by=" + $(".ui-tabs-selected a").attr("by");
   $.get(t, function() {
     

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120810202535) do
+ActiveRecord::Schema.define(:version => 20120902012324) do
 
   create_table "advertisers", :force => true do |t|
     t.string   "code",       :limit => 10,                    :null => false
@@ -103,6 +103,14 @@ ActiveRecord::Schema.define(:version => 20120810202535) do
   add_index "spots", ["spot_type"], :name => "idx_type"
   add_index "spots", ["tagged_image_id"], :name => "idx_tagged_image_id"
 
+  create_table "tagged_image_statistics", :force => true do |t|
+    t.integer "tagged_image_id",                :null => false
+    t.date    "log_date",                       :null => false
+    t.integer "impression",      :default => 0, :null => false
+    t.integer "click",           :default => 0, :null => false
+    t.integer "hover",           :default => 0, :null => false
+  end
+
   create_table "tagged_images", :force => true do |t|
     t.integer  "website_id",                                         :null => false
     t.string   "remote_addr"
@@ -127,15 +135,16 @@ ActiveRecord::Schema.define(:version => 20120810202535) do
   add_index "tags", ["tname"], :name => "idx_tname", :unique => true
 
   create_table "users", :force => true do |t|
-    t.string   "user_code",   :limit => 10,                 :null => false
-    t.string   "email",       :limit => 50,                 :null => false
-    t.string   "password",    :limit => 50,                 :null => false
-    t.integer  "login_count",               :default => 0,  :null => false
-    t.string   "login_ip",    :limit => 20, :default => ""
-    t.integer  "user_type",                                 :null => false
-    t.integer  "status",                    :default => 1,  :null => false
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
+    t.string   "user_code",       :limit => 10,                 :null => false
+    t.string   "email",           :limit => 50,                 :null => false
+    t.string   "password",        :limit => 50,                 :null => false
+    t.integer  "login_count",                   :default => 0,  :null => false
+    t.string   "login_ip",        :limit => 20, :default => ""
+    t.integer  "user_type",                                     :null => false
+    t.integer  "status",                        :default => 1,  :null => false
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
+    t.string   "activation_code", :limit => 40
   end
 
   create_table "website_categories", :force => true do |t|

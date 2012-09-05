@@ -23,12 +23,21 @@ $(document).ready(function() {
   $('.pagination a').attr('data-remote', 'true');
 });
 
-jQuery.validator.setDefaults({  
-  onfocusout: false,
-  errorElement: 'em',
+jQuery.validator.setDefaults({
+  //onfocusout: false,
+  errorElement: 'i',
   errorPlacement: function(error, element) {
-    error.appendTo(element.parent());
-    error.css('margin-left', '10px');
-    error.css('background-color', '#00ff00');
+    var noticeform = element.closest('li').children('.notice_form');
+    noticeform.children(":not(.normal)").remove();
+    noticeform.append(error);
   },
+  errorClass: 'wrong',
+  success: function(label) {
+    label.removeClass("wrong").addClass("right");
+  }
 });
+
+jQuery.validator.addMethod("domain", function(value, element) { 
+  return this.optional(element) || /^(\w+[\w-\.]+\.[a-zA-Z]+)$/.test(value); 
+}, "请填入域名，比如abc.com，www.abc.com");
+

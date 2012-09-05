@@ -53,8 +53,9 @@ gem "galetahub-simple_captcha", :require => "simple_captcha"
 group :development, :test do
   gem 'capistrano'
   gem 'capistrano-ext'
+  gem 'rvm-capistrano'
 end
 
 group :production do
-  gem 'pg'
+  #gem 'pg'
 end
