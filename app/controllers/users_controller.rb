@@ -98,6 +98,7 @@ class UsersController < ApplicationController
   # GET /users/signout
   def signout
     reset_session
+    cookies.delete :u, :domain => Utils.get_main_domain(request.host) || 'adspot.cn'
     respond_to do |format|
       format.html { redirect_to signin_users_path }
     end
@@ -113,6 +114,11 @@ class UsersController < ApplicationController
         reset_session
         session[:user] = user.user_code
         session[:user_email] = user.email
+        cookies[:u] = {
+          :value => user.user_code,
+          :expires => 1.hour.from_now,
+          :domain => Utils.get_main_domain(request.host) || 'adspot.cn'
+        }
         user.update_login_status(request.ip)
         if user.user_type == User::TYPE_ADVERTISER
           session[:curadv] = user.advertisers[0].id

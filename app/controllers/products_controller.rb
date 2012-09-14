@@ -179,10 +179,13 @@ class ProductsController < ApplicationController
 
   # PUT /products/1/upload_avatar
   def upload_avatar
+    puts params
     @product = Product.find_by_pcode(params[:id])
 
     respond_to do |format|
       if @product.update_attributes(params[:product])
+        @product.update_product_thumb
+        @product.save
         flash[:success] = '成功上传产品图片'
         format.html { redirect_to @product }
       else

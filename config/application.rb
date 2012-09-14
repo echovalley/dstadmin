@@ -70,5 +70,6 @@ module Dstadmin
       :password             => '780316',
       :authentication       => 'plain',
       :enable_starttls_auto => true  }
+
   end
 end

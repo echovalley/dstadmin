@@ -16,3 +16,4 @@
 
 # Ignore upload pictures
 /public/upload
+/public/tagged_images

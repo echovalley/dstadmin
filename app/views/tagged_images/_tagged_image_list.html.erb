@@ -8,8 +8,7 @@
 <ul class="pic_list">
   <% @tagged_images.each do |t| %>
     <li>
-    <%= link_to(image_tag(t.remote_addr, :alt => t.title), website_tagged_image_path(:id => t.id, :website_id => @website.wcode), :remote => true) %>
-    <%#= link_to(image_tag(t.remote_addr, :alt => t.title), "/medias/websites/#{@website.wcode}/tagged_images/#{t.id}", :remote => true) %>
+    <%= link_to(image_tag(thumbnail(t), :alt => t.title, :onError => "this.src='#{default_thumbnail()}'"), website_tagged_image_path(:id => t.id, :website_id => @website.wcode), :remote => true) %>
     <span><label>标签：</label><%= t.title %></span>
     <span><label>锚点：</label><%= t.spots_number %></span>
     <span><label>记录时间：</label><%= t.created_at.to_s(:db) %></span>

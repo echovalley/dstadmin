@@ -18,6 +18,8 @@ class Product < ActiveRecord::Base
   validates :pcode, :uniqueness => true
   validates_attachment :avatar, :content_type => { :content_type => ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'] }, :size => { :in => 0..1.megabytes }
 
+  #after_post_process :set_thumb_path
+
   def self.list(advertiser_id)
     #todo: User the first client as default client
     search(:advertiser_id => advertiser_id)
@@ -69,6 +71,12 @@ class Product < ActiveRecord::Base
 
   def self.count_products_by_advertiser(advertiser_id)
     Product.where(:advertiser_id => advertiser_id).count
+  end
+
+  def update_product_thumb
+    if self.avatar.present?
+      self.pdct_thumb = $1 if self.avatar.url =~ /^(.+)\?\d+$/
+    end
   end
 
   #private

@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
   # Verify login information from controller
   def self.verify(email, password)
-    user = User.where(:email => email, :password => Utils.sha1(password + 'ad2012spot' + email)).includes(:advertisers, :websites).first
+    user = User.where(:email => email, :password => Utils.sha1(password.to_s + 'ad2012spot' + email)).includes(:advertisers, :websites).first
     login_status = nil
     if user.present?
       if user.status == STATUS_ACTIVE

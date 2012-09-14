@@ -21,6 +21,10 @@ module Utils
     return $1 if url =~ /(\w+[\w-\.]+\.[a-zA-Z]+)/
   end
 
+  def self.get_main_domain(url)
+    return $1 if url =~ /([\w-]+\.(com|net|org|gov|cc|biz|info|cn|me|cc|la|tv)(\.(cn|hk|tw|jp))*)(\/|:|$)/
+  end
+
   def self.belong_to_domain(sub_domain, main_domain)
     sub_domain.match(/\.?#{main_domain}$/).present?
   end

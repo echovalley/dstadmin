@@ -1,6 +1,5 @@
 # encoding: utf-8
 class TaggedImagesController < ApplicationController
-#class TaggedImagesController < WebsitesController
   
   ROWS_PRE_PAGE = 5
 
@@ -23,6 +22,7 @@ class TaggedImagesController < ApplicationController
     @tagged_images = TaggedImage.search(params).paginate(:page => params[:page], :per_page => ROWS_PRE_PAGE)
     @tagged_images.each { |t| t.count_spots }
     @keyword = params[:keyword]
+    @order_by = params[:order_by]
 
     respond_to do |format|
       format.js { render 'search' }

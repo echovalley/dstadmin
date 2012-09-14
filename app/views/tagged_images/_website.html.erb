@@ -1,7 +1,7 @@
 <div class="head_publishsite">
   <fieldset class="site_select">
     <label>选择网站：</label>
-    <%= select_tag :website_wcode, options_from_collection_for_select(@websites, :wcode, :wname) %>
+    <%= select_tag :website_wcode, options_from_collection_for_select(@websites, :wcode, :wname, @website.wcode) %>
   </fieldset>
   <h1><%= @website.wname %><span><label>ID：</label><%= @website.wcode %></span></h1>
   <ul class="botline info_site">
@@ -19,8 +19,14 @@
     <li><label>鼠标移过次数：</label><%= @total_images_statistics[:hover] %></li>
     <li><label>锚点展示次数：</label><%= @total_spots_statistics[:impression] %></li>
     <li><label>点击数：</label><%= @total_spots_statistics[:click] %></li>
-    <li><label>击穿率：</label><%= number_to_percentage(@total_spots_statistics[:click].to_f/@total_spots_statistics[:impression].to_f*100) if @total_spots_statistics[:impression].present? && @total_spots_statistics[:click].present? %></li>
+    <li><label>击穿率：</label><%= number_to_percentage(@total_spots_statistics[:click].to_f/@total_spots_statistics[:impression].to_f*100) if @total_spots_statistics[:impression] > 0 %></li>
     <li><label>收入：</label> <%= @total_spots_statistics[:income] %></li>
-    <li><label>eCPM：</label><%= number_to_currency(@total_spots_statistics[:income].to_f/@total_spots_statistics[:impression].to_f, :precision => 3, :unit=>"￥") if @total_spots_statistics[:impression].present? && @total_spots_statistics[:income].present? %></li>
+    <li><label>eCPM：</label><%= number_to_currency(@total_spots_statistics[:income].to_f/@total_spots_statistics[:impression].to_f, :precision => 3, :unit=>"￥") if @total_spots_statistics[:impression] > 0 %></li>
   </ul>
 </div>
+<script type='text/javascript'>
+  var switch_url = '<%= website_tagged_images_path("PLACEHOLDER") %>';
+  $('#website_wcode').change(function() {
+      window.location = switch_url.replace('PLACEHOLDER', $(this).val());
+  });
+</script>

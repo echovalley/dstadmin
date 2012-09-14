@@ -18,4 +18,12 @@ module TaggedImagesHelper
       end
     end
   end
+
+  def thumbnail(tagged_image)
+    TAGGED_IMAGE_THUMBNAIL_URL + tagged_image.id.to_s + '.jpg'
+  end
+
+  def default_thumbnail()
+    TAGGED_IMAGE_THUMBNAIL_URL + 'default_thumb.jpg'
+  end
 end

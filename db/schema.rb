@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120902012324) do
+ActiveRecord::Schema.define(:version => 20120906013449) do
 
   create_table "advertisers", :force => true do |t|
     t.string   "code",       :limit => 10,                    :null => false
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(:version => 20120902012324) do
     t.integer  "margin_x",                       :default => 0,  :null => false
     t.integer  "margin_y",                       :default => 0,  :null => false
     t.string   "link_addr"
-    t.string   "link__title",     :limit => 100, :default => ""
+    t.string   "link_title",      :limit => 100, :default => ""
     t.string   "link_desc"
     t.string   "link_thumb"
     t.string   "link_css",        :limit => 10
