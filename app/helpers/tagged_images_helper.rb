@@ -11,7 +11,7 @@ module TaggedImagesHelper
           end
         end
         a << content_tag(:li, :class => current_page?(:controller => 'tagged_images') ? 'ui-corner-top' : 'ui-corner-top ui-tabs-selected') do
-          link_to(website_tagged_images_path(wcode)) do
+          link_to(website_untagged_images_path(wcode)) do
             raw('未加锚点图片' + content_tag(:small, untagged_images))
           end
         end
@@ -19,11 +19,11 @@ module TaggedImagesHelper
     end
   end
 
-  def thumbnail(tagged_image)
+  def tagged_images_thumbnail(tagged_image)
     TAGGED_IMAGE_THUMBNAIL_URL + tagged_image.id.to_s + '.jpg'
   end
 
   def default_thumbnail()
-    TAGGED_IMAGE_THUMBNAIL_URL + 'default_thumb.jpg'
+    image_path('default_thumb_60.jpg')
   end
 end

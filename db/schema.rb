@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120906013449) do
+ActiveRecord::Schema.define(:version => 20120914065605) do
 
   create_table "advertisers", :force => true do |t|
     t.string   "code",       :limit => 10,                    :null => false
@@ -133,6 +133,19 @@ ActiveRecord::Schema.define(:version => 20120906013449) do
   end
 
   add_index "tags", ["tname"], :name => "idx_tname", :unique => true
+
+  create_table "untagged_images", :force => true do |t|
+    t.integer  "website_id",                                      :null => false
+    t.string   "remote_addr"
+    t.string   "title",         :limit => 100
+    t.integer  "width",                                           :null => false
+    t.integer  "height",                                          :null => false
+    t.boolean  "thumb",                        :default => false, :null => false
+    t.integer  "access_status",                :default => 1,     :null => false
+    t.datetime "created_at",                                      :null => false
+    t.datetime "updated_at",                                      :null => false
+    t.string   "locate_url"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "user_code",       :limit => 10,                 :null => false

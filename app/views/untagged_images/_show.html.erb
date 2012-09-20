@@ -1,0 +1,8 @@
+<h1><%= @untagged_image.title %><a href="#" class="icon_edit">编 辑</a></h1>
+<%= image_tag(@untagged_image.remote_addr, :alt => @untagged_image.title) %>
+<ul class="info_pic">
+  <li><span><label>图片尺寸：</label><%= @untagged_image.width %>*<%= @untagged_image.height %></span></li>
+  <li><span><label>图片路径：</label><%= @untagged_image.remote_addr %></span></li>
+  <li><span><label>标注页面：</label><%= @untagged_image.locate_url %></span></li>
+  <input type="submit" value="编辑锚点" class="btn_green size-m">
+</ul>

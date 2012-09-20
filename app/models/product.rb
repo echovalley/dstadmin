@@ -3,6 +3,10 @@ class Product < ActiveRecord::Base
   STATUS_ACTIVE = 1 #If refer outerside, use Product::STATUS_ACTIVE
   STATUS_PAUSED = 2
 
+  PRICING_CPC = 1
+  PRICING_CPA = 2
+  PRICING_CPS = 3
+
   attr_accessible :brand, :click_target, :delivery_rule, :delivery_type, :description, :pcode, :pdct_price, :unit_price, :pdct_thumb, :pname, :pricing, :status, :upper_limit, :avatar
   has_attached_file :avatar, 
     :default_style => :thumb,

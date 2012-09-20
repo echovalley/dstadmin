@@ -112,6 +112,7 @@ class Website < ActiveRecord::Base
     { :impression => impression, :click => click, :income => income }
   end
 
+
   def to_param
     wcode
   end

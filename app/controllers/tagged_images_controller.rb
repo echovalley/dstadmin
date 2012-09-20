@@ -59,7 +59,7 @@ class TaggedImagesController < ApplicationController
     end
   end
 
-private
+protected
 
   def check_website_permission
     website = Website.find_by_wcode(params[:website_id])

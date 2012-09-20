@@ -5,4 +5,9 @@ class Spot < ActiveRecord::Base
   has_one :spot_statistics
   TYPE_PRODUCT = 1
   TYPE_LINK = 2
+  
+  def get_website_id
+    image = TaggedImage.includes(:spots).where(:spots => {:id => self.id}).first
+    image.website_id
+  end
 end

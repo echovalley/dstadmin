@@ -1,15 +1,14 @@
 <div class="bg_green relative">
-  <%= form_tag(search_website_tagged_images_path(@website.wcode), :remote => true, :method => 'get', :id => 'frmSearch') do %>
+  <%= form_tag(search_website_untagged_images_path(@website.wcode), :remote => true, :method => 'get', :id => 'frmSearch') do %>
     <%= select_tag :order_by, options_for_select({'按上传时间排序 ' => 1, '按名称排序' => 2}, @order_by.blank? ? 1 : @order_by) %>.
     <%= text_field_tag 'keyword', @keyword.blank? ? '' : @keyword %>
     <%= button_tag '', :class => 'icon_search absolute', :id => 'btnSearch' %>
   <% end %>
 </div>
 <ul class="pic_list">
-  <% @tagged_images.each do |t| %>
+  <% @untagged_images.each do |t| %>
     <li>
-    <%= link_to(image_tag(tagged_images_thumbnail(t), :alt => t.title, :onError => "this.src='#{default_thumbnail()}'"), website_tagged_image_path(:id => t.id, :website_id => @website.wcode), :remote => true) %>
-    
+    <%= link_to(image_tag(untagged_images_thumbnail(t), :alt => t.title, :onError => "this.src='#{default_thumbnail()}'"), website_untagged_image_path(:id => t.id, :website_id => @website.wcode), :remote => true) %>
     <span><label>标签：</label><%= t.title %></span>
     <span><label>锚点：</label><%= t.spots_number %></span>
     <span><label>记录时间：</label><%= t.created_at.to_s(:db) %></span>
@@ -17,6 +16,6 @@
   <% end %>
 </ul>
 <nav class="page">
-<%= will_paginate @tagged_images, :class => 'pagination pagenavi', :previous_label => '上一页', :next_label => '下一页' %>
+<%= will_paginate @untagged_images, :class => 'pagination pagenavi', :previous_label => '上一页', :next_label => '下一页' %>
 </nav>
 <a class="nav-toggle" href="#">Hide</a>

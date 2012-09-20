@@ -50,4 +50,9 @@ class TaggedImage < ActiveRecord::Base
     Product.joins(:spots).where(:spots => {:tagged_image_id => self.id, :spot_type => Spot::TYPE_PRODUCT}, :status => Product::STATUS_ACTIVE).uniq
   end
 
+  def self.get_website_id_by_spot(spot_id)
+    image = TaggedImage.includes(:spots).where(:spots => {:id => spot_id}).first
+    image.website_id
+  end
+
 end

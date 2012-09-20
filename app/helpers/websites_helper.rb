@@ -2,22 +2,37 @@
 module WebsitesHelper
 
   #adspot.js
-  def code(wcode)
-    <<-eos
-<script type="text/javascript">
-var __adspot_wb_code = "#{wcode}";
-var __adspot_res_host = "http://www.adspot.cn/static/"; 
-var __adspot_data_host = "http://www.adspot.cn/ads/"; 
-
-(function () {
-  var spotScript = document.createElement("script");
-  spotScript.type = "text/javascript";
-  spotScript.async = true;
-  spotScript.src = __adspot_res_host + "dst.js";
-  document.documentElement.getElementsByTagName("HEAD")[0].appendChild(spotScript)
-})();
-</script>
+  def adspot(wcode, cancel_log = nil)
+    p = <<-eos
+var _adspot_wb_code = '#{wcode}';
+var _adspot_host = 'http://www.adspot.cn';
     eos
+
+    if cancel_log.present?
+      p << <<-eos
+var _adspot_cancel_log = true;
+    eos
+    end
+
+    p<< <<-eos
+(function () {
+  var spotScript = document.createElement('script');
+  spotScript.type = 'text/javascript';
+  spotScript.async = true;
+  spotScript.src = _adspot_host + '/static/dst.js';
+  document.documentElement.getElementsByTagName('HEAD')[0].appendChild(spotScript)
+})();
+    eos
+  end
+
+  def code(wcode)
+    p = "<script type='text/javascript'>\n"
+    p << adspot(wcode)
+    p << "</script>"
+  end
+
+  def javascript_code(wcode)
+    javascript_tag adspot(wcode) 
   end
 
   #New website bread crumb: step1, step2, step3

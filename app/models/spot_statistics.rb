@@ -1,5 +1,5 @@
 class SpotStatistics < ActiveRecord::Base
-  attr_accessible :click, :impression, :income, :log_date
+  attr_accessible :click, :impression, :income, :log_date, :spot_id, :website_id, :product_id
   belongs_to :spot
   belongs_to :website
   belongs_to :product

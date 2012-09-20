@@ -32,6 +32,11 @@ Dstadmin::Application.routes.draw do
         get 'statistics_spots'
       end
     end
+    resources :untagged_images do
+      collection do
+        get 'search'
+      end
+    end
   end
 
   resources :users do

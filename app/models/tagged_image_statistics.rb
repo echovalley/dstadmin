@@ -1,5 +1,5 @@
 class TaggedImageStatistics < ActiveRecord::Base
-  attr_accessible :click, :impression, :hover, :log_date
+  attr_accessible :click, :impression, :hover, :log_date, :tagged_image_id
   belongs_to :tagged_image
   attr_accessor :spots_impression, :spots_click, :spots_income
 
