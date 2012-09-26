@@ -56,8 +56,8 @@ group :development, :test do
   gem 'rvm-capistrano'
 end
 
-group :production do
+#group :production do
   gem 'pg'
-end
+#end
 
 gem 'nokogiri'
