@@ -2,11 +2,17 @@ namespace :adspot do
   desc 'Ad spot statistics report calculation'
   task :statistics, [:log_hour] => :environment do |t, args|
     args.with_defaults(:log_hour => Time.now.strftime("%Y%m%d%H"))
-    process(args.log_hour)
+    hourly_statistics(args.log_hour)
   end
 
+  namespace :fetch do
+    desc 'Collect urls for fetching untagged images'
+    task :urls do
+    end
 
-  def process(log_hour)
+  end
+
+  def hourly_statistics(log_hour)
     hash_images = {}
     hash_spots = {}
 
