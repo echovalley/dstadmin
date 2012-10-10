@@ -21,6 +21,11 @@
 
 $(document).ready(function() {
   $('.pagination a').attr('data-remote', 'true');
+  $('li input').focus(function() {
+    var noticeform = $(this).closest('li').children('.notice_form');
+    noticeform.children(":not(.normal)").remove();
+    noticeform.children(".normal").show();
+  });
 });
 
 jQuery.validator.setDefaults({
@@ -29,6 +34,7 @@ jQuery.validator.setDefaults({
   errorPlacement: function(error, element) {
     var noticeform = element.closest('li').children('.notice_form');
     noticeform.children(":not(.normal)").remove();
+    noticeform.children(".normal").hide();
     noticeform.append(error);
   },
   errorClass: 'wrong',

@@ -28,7 +28,9 @@
           </li>
           <li>
           <label>验证码</label>
+          <div class="captcha">
           <%= show_simple_captcha :label => '请输入上面的字符' %>
+          </div>
           <div class="notice_form">
             <i class="normal">请输入图片中的字符，不区分大小写 <%= link_to '看不清楚？换张图片', refresh_captcha_path, :remote => true %></i>
           </div>

@@ -38,7 +38,7 @@ module ApplicationHelper
   def notice_javascript
     return nil unless flash.present?
     javascript_tag do
-      <<-eos
+      "
       $(document).ready(function() {
         var msg_success = '#{flash[:success]}';
         var msg_error = '#{flash[:error]}';
@@ -58,7 +58,7 @@ module ApplicationHelper
           $('.alert').fadeIn(200);
         }
       });
-      eos
+      ".html_safe
     end
   end
 

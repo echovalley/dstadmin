@@ -33,15 +33,16 @@ label{vertical-align: top}
 :focus { outline: 0 }
 a, input, textarea { border:none; outline:none }
 button::-moz-focus-inner,
+input[type="url"]::-moz-focus-inner,
 input[type="reset"]::-moz-focus-inner,
 input[type="button"]::-moz-focus-inner,
 input[type="submit"]::-moz-focus-inner,
 input[type="file"] > input[type="button"]::-moz-focus-inner { border: none }
-
+fieldset{margin: 12px 0px}
 
 /* -- 2. TYPOGRAPHY -- */
 
-body { margin:0px auto; font:12px/1.5 Arial,Helvetica,sans-serif; text-align:center; color:#4f4f4f; background:#fff url(/assets/dots.png); background-attachment:fixed}
+body { margin:0px auto; font:12px/1.5 Arial,Helvetica,sans-serif; text-align:center; color:#4f4f4f;}
 p, ul, ol,dl { margin-top: 8px;color: #4f4f4f}
 p{line-height: 1.6;color: #797979;margin-top: 12px}
 p{text-indent: 2em}
@@ -53,13 +54,13 @@ dd { margin-top:1.2em}
 ins { border:none; color:#333 }
 del { text-decoration:line-through; color:#999 }
 h1, h2, h3, h4, h5 { font-family: "hei" "Open Sans", Arial, Helvetica, Geneva, sans-serif;font-weight:normal }	
-h1 { font-size: 26px; line-height: 36px; }
+h1 { font-size: 26px; line-height: 36px;margin: 0px 0px 12px 0px}
 h2 { font-size: 22px; line-height: 30px; }
 h3 { font-size: 18px; line-height: 27px; }
 h4 { font-size: 14px; line-height: 21px;}
 h5 { font-size: 13px; line-height: 18px; }
 a {	color:#64b02e; text-decoration:none }
-a:hover { text-decoration:underline }
+a:hover { color:#64b02e;text-decoration:underline }
 b, strong { font-weight:bold }
 em, i {color: #797979}
 em { color:#000 }
@@ -120,6 +121,7 @@ nav.nav_main li:last-child a{border: none}
 .promotion fieldset{text-align: center;margin-top: 12px}
 .promotion h2{border-bottom: 3px solid #7e7d7e}
 .promotion h2 a:link{float: right;font-size: 12px;}
+.content{min-height: 400px}
 /* Slider */
 
 
@@ -133,15 +135,15 @@ nav.nav_main li:last-child a{border: none}
 .tabs label,.tabs ul{float: left;margin-right: 4px}
 .tabs ul{margin-top: 2px}
 .tabs label,.form_left label{text-align: right;font-size: 14px;display: inline-block;margin:6px 16px 0px 0px}
-.tabs li a { display:inline-block; font-size:14px; color:#fff; background:#64b02e url(/assets/bg_dark_overlay.png) 0px 15px repeat-x; padding:5px 20px 4px; border:1px solid #5ca112; margin-right:3px; 
+.tabs li a { display:inline-block; font-size:14px; color:#fff; padding:5px 20px 4px; border:1px solid #5ca112; margin-right:3px; 
 	-moz-border-radius:6px 6px 0px 0px;
 	-webkit-border-radius: 6px 6px 0px 0px;
 	border-radius:6px 6px 0px 0px;
-	background: -webkit-linear-gradient(#73c539,#50991d);
-    background: -moz-linear-gradient(#73c539,#50991d);
+    background:#fff; color:#4f4f4f;font-weight:bold;background: -webkit-linear-gradient(#fefefe,#e7e7e7);
+    background: -moz-linear-gradient(#fefefe,#e7e7e7);
 }
-.tabs li.ui-tabs-selected a,.tabs li a:hover{ background:#fff; color:#4f4f4f;border-bottom:1px solid #e7e7e7;font-weight:bold;background: -webkit-linear-gradient(#fefefe,#e7e7e7);
-    background: -moz-linear-gradient(#fefefe,#e7e7e7);text-decoration: none}
+.tabs li.ui-tabs-selected a,.tabs li a:hover{background:#64b02e url(/assets/bg_dark_overlay.png) 0px 15px repeat-x;	background: -webkit-linear-gradient(#73c539,#50991d);
+    background: -moz-linear-gradient(#73c539,#50991d);text-decoration: none;color: #fff}
 .tabbed { position:relative; overflow:hidden; padding:12px 0px 0px}
 
 /* -- 7. tables -- */
@@ -158,7 +160,13 @@ table.table_data1 tr:nth-child(2n){background: #f8f8f8}
 .width1 {width: 120px}
 .width2 {width: 80px}
 /* -- 8. register&login PAGES -- */
-
+.captcha {display: inline-block}
+.captcha .simple_captcha,.captcha .simple_captcha .simple_captcha_field{border: none;padding: 0px!important}
+.captcha .simple_captcha_field{display: inline-block}
+.captcha .simple_captcha .simple_captcha_label{display: none}
+.captcha .simple_captcha .simple_captcha_field input{background: #fbfbfb;border: 1px solid #B5B5B5;margin: 0px;font-size: 13px}
+.captcha .simple_captcha .simple_captcha_field input:focus{border: 2px solid #64B02E}
+.captcha .simple_captcha .simple_captcha_image{float: right;margin-right: 8px;border: none}
 .title_page{width:980px;padding: 12px 12px;margin: 0 auto;text-align: left}
 .form_left{width: 540px;float: left;border-right: 1px solid #e3e3e3}
 .form_right{width: 400px;float: right}
@@ -180,7 +188,7 @@ input.captcha_field{width: 160px}
 .form_left h4{text-align: right;padding-right: 15px}
 .login_area{width: 460px;margin: 0 auto}
 .box_gray_around ul li{margin-top: 16px}
-.box_gray_around label{width: 90px;text-align: right;font-size: 14px;display: inline-block;padding: 4px 8px 0px 0px}
+.box_gray_around label{width: 90px;text-align: right;font-size: 14px;display: inline-block;padding: 8px 12px 0px 0px;margin: 0}
 .box_gray_around input[type="email"],.box_gray_around input[type="password"],.box_gray_around input[type="text"]{width: 260px;border: 1px solid #b5b5b5}
 .box_gray_around select{width: 268px;border: 1px solid #b5b5b5}
 .box_gray_around input[type="submit"]{width: 180px}
@@ -488,14 +496,16 @@ a.btn2:active {
     text-shadow: 0 -1px rgba(15, 89, 153, 0.4)}
 .btn_red:hover{background: -webkit-linear-gradient(#bf3831,#ef625e);
     background: -moz-linear-gradient(#bf3831,#ef625e);}
-.size-m, .size-m:visited { font-size:12px; padding:4px 6px;border-radius:5px;}
-.size-l, .size-l:visited { font-size:14px; padding:8px 13px 7px;border-radius:7px;}
+.size-m, .size-m:visited { font-size:12px; padding:4px 6px;border-radius:4px;-moz-border-radius: 4px; 
+	-webkit-border-radius: 4px;}
+.size-l, .size-l:visited { font-size:14px; padding:8px 13px 7px;border-radius:4px;-moz-border-radius: 4px; 
+	-webkit-border-radius: 4px;}
 .size-xl, .size-xl:visited { font-size:17px; padding:10px 13px 9px }
 .size-xxl, .size-xxl:visited { font-size:19px; padding:11px 14px; font-weight:normal }
-.size-max{font-size: 18px;padding:7px 0px;text-align: center;width: 300px;	-moz-border-radius: 9px; 
-	-webkit-border-radius: 9px;
-	border-radius:9px; }
-
+.size-max{font-size: 18px;padding:7px 0px;text-align: center;width: 300px;	-moz-border-radius: 4px; 
+	-webkit-border-radius: 4px;
+	border-radius:4px; }
+input.size-max{width: 300px}
 .pp_inline { line-height:18px; padding:10px }
 .hide { display:none }
 
