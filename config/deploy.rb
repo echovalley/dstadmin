@@ -1,5 +1,9 @@
 require "rvm/capistrano"
 require "bundler/capistrano"
+require 'capistrano/ext/multistage'
+
+set :stages, ["staging", "production"]
+set :default_stage, "staging"
 
 set :rvm_ruby_string, 'ruby-1.9.3-p194'
 before 'deploy:setup', 'rvm:install_rvm'
@@ -13,7 +17,7 @@ set :scm, :git
 
 set :user, "root"
 set :scm_username, "echovalley"
-set :deploy_to, "/var/www/#{application}"
+#set :deploy_to, "/var/www/#{application}"
 
 role :web, "192.168.0.183"                          # Your HTTP server, Apache/etc
 role :app, "192.168.0.183"                          # This may be the same as your `Web` server
