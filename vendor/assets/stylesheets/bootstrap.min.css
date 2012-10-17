@@ -944,8 +944,6 @@ textarea {
 }
 
 label {
-  display: block;
-  margin-bottom: 5px;
 }
 
 select,
@@ -966,10 +964,8 @@ input[type="tel"],
 input[type="color"],
 .uneditable-input {
   display: inline-block;
-  height: 20px;
   padding: 4px 6px;
   font-size: 14px;
-  line-height: 20px;
   color: #555555;
   -webkit-border-radius: 3px;
      -moz-border-radius: 3px;
@@ -1047,16 +1043,6 @@ input[type="checkbox"] {
   width: auto;
 }
 
-select,
-input[type="file"] {
-  height: 30px;
-  /* In IE7, the height of the select element cannot be changed by height, only font-size */
-
-  *margin-top: 4px;
-  /* For IE7, add top margin to align select with labels */
-
-  line-height: 30px;
-}
 
 select {
   width: 220px;
@@ -2137,7 +2123,7 @@ table [class*=span],
   *margin-right: .3em;
   line-height: 14px;
   vertical-align: text-top;
-  background-image: url("../img/glyphicons-halflings.png");
+  background-image: url("/assets/glyphicons-halflings.png");
   background-position: 14px 14px;
   background-repeat: no-repeat;
 }
@@ -2157,7 +2143,7 @@ table [class*=span],
 .dropdown-menu > li > a:hover > [class*=" icon-"],
 .dropdown-menu > .active > a > [class^="icon-"],
 .dropdown-menu > .active > a > [class*=" icon-"] {
-  background-image: url("../img/glyphicons-halflings-white.png");
+  background-image: url("/assets/glyphicons-halflings-white.png");
 }
 
 .icon-glass {

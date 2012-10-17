@@ -3,7 +3,7 @@
 <ul class="info_pic">
   <li><span><label>图片尺寸：</label><%= @tagged_image.width %>*<%= @tagged_image.height %></span></li>
   <li><span><label>图片路径：</label><%= @tagged_image.remote_addr %></span></li>
-  <li><span><label>标注页面：</label><%= @tagged_image.locate_url %></span></li>
+  <li><span><label>标注页面：</label><%= link_to @tagged_image.locate_url, @tagged_image.locate_url, :target => '_blank' %></span></li>
   <li>
   <label>该图片被标注了<em><%= @tagged_image.spots.length %></em>个锚点</label>
   <% if @products.present? %>

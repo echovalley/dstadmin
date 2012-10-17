@@ -1,25 +1,35 @@
 <h4>我的网站</h4>
 <span><%= link_to '添加新网站', new_website_path %></span>
-<%= link_to '修改密码', { :action => 'change_password', :controller => 'users', :id => @user } %>
 <table>
-  <thead><tr><th>网站名称</th><th>域名</th><th>图片数</th><th>锚点数</th><th>收 益</th><th></th></tr></thead>
+  <thead><tr><th>网站名称</th><th>域名</th><th>图片数</th><th>锚点数</th><th>收 益</th><th>操作</th></tr></thead>
   <tbody>
     <% @websites.each do |w| %>
       <tr>
-        <td><%= w.wname %></td>
-        <td><%= w.url %></td>
+        <td>
+          <% if w.status == Website::STATUS_VERIFIED %>
+            <%= link_to w.wname, website_tagged_images_path(w.wcode) %>
+          <% else %>
+            <%= w.wname %>
+          <% end %>
+        </td>
+        <td>
+          <%= w.url %>
+          <% if w.status == Website::STATUS_NOTVERIFIED %><%= link_to '(未验证，点击验证)', verify_website_path(w.wcode) %><% end %>
+        </td>
         <td><%= w.tagged_images_number %></td>
         <td><%= w.spots_number %></td>
         <td><%= w.total_income %></td>
         <td>
-          <%= link_to '编辑', edit_website_path(w.wcode) %>
-          <%= link_to '删除', destroy_website_path(w.wcode), :method => :delete, :confirm => '确定删除？所有数据都将被删除' %>
-          <% if w.status == Website::STATUS_NOTVERIFIED %>
-            <%= link_to '验证', verify_website_path(w.wcode) %>
-          <% else %>
-            <%= link_to '验证', verify_website_path(w.wcode) %>
-            <%= link_to '切换到该网站', website_tagged_images_path(w.wcode) %>
-            <%= link_to '查看代码', code_website_path(w.wcode) %>
+          <%= link_to edit_website_path(w.wcode), :title => '编辑网站信息' do %>
+            <%= content_tag :i, '', :class => 'icon-pencil' %>
+          <% end %>
+          <%= link_to destroy_website_path(w.wcode), :method => :delete, :confirm => '确定删除？所有数据都将被删除', :title => '删除网站' do %>
+            <%= content_tag :i, '', :class => 'icon-remove' %>
+          <% end %>
+          <% if w.status == Website::STATUS_VERIFIED %>
+            <%= link_to code_website_path(w.wcode), :title => '获取配置代码' do %>
+              <%= content_tag :i, '', :class => 'icon-code' %>
+            <% end %>
           <% end %>
         </td>
       </tr>

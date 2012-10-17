@@ -17,8 +17,9 @@ module ApplicationHelper
 
   def login_crumb
     email = session[:user_email]
+    user_code = session[:user]
     if email.present?
-      p = link_to email, signin_users_path , :class => 'noborderleft'
+      p = link_to '设置', { :action => 'change_password', :controller => 'users', :id => user_code }, :class => 'noborderleft'
       #p += link_to '消 息', '#'
       p += link_to '我的所有网站', websites_path if session[:curadv].blank?
       p += link_to '登 出', signout_users_path

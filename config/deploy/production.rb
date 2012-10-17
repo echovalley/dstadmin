@@ -1,1 +1,1 @@
-set :deploy_to, "/var/www/#{application}"
+set :deploy_to, "/var/www/#{application}_production"

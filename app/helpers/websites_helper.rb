@@ -5,7 +5,7 @@ module WebsitesHelper
   def adspot(wcode, cancel_log = nil)
     p = <<-eos
 var _adspot_wb_code = '#{wcode}';
-var _adspot_host = 'http://www.adspot.cn';
+var _adspot_host = 'http://kb.adspot.cn';
     eos
 
     if cancel_log.present?
