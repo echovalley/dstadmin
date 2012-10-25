@@ -35,7 +35,7 @@
       <tr>
         <td class="checkbox_list"><%= check_box_tag 'pid[]', p.id %></td>
         <td><%= link_to p.pname, p, :remote => true %></td>
-        <td>368</td>
+        <td><%= p.spots_number %></td>
         <td><%= p.updated_at.to_s(:db) %></td>
         <td><%= product_status(p.status) %></td>
       </tr>
@@ -45,9 +45,19 @@
   </table>
   <div class="bg_gray tablenav">
     <input id="chxAll" name="chxAll" type="checkbox" />
-    <%= select_tag 'operation', options_for_select({'删除' => 1, '修改状态' => 2, '设置标签' => 3}, 1), :id => 'opmode' %> 
-    <!--select> <option>修改状态 </option> <option>设置标签 </option> <option>删 除 </option> </select-->
-    <%= button_tag '执 行', :type => 'button', :remote => true, :class => 'btn_green size-m', :id => 'btnBatchExecute' %>
+
+    <div class="btn-group">
+      <button class="btn" style='width:100px'>操作</button>
+      <button class="btn dropdown-toggle" data-toggle="dropdown">
+        <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a href='javascript:void()' id='op_delete'>删除</a></li>
+        <li><a href='javascript:void()' id='op_status'>修改状态</a></li>
+        <li><a href='javascript:void()' id='op_tag'>设置标签</a></li>
+      </ul>
+    </div>
+
     <%#= will_paginate @products, :renderer => PaginationListLinkRenderer, :class => 'pagination pagenavi'%>
     <%= will_paginate @products, :class => 'pagination pagenavi', :previous_label => '上一页', :next_label => '下一页' %>
   </div>
@@ -87,53 +97,64 @@
 </div>
 
 <script type='text/javascript'>
-  var batch_destroy_action = '<%= batch_destroy_products_path %>';
-  var batch_update_status_action = '<%= batch_update_status_products_path %>';
-  var batch_update_tags_action = '<%= batch_update_tags_products_path %>';
 
-  $('#btnBatchExecute').click(function() {
+  var form = $('#frmPdcts');
+
+  function check_selected() {
     var n = $(':checkbox:checked').length;
-    if (n == 0) {
+    return n > 0;
+  }
+
+  $('#op_delete').click(function() {
+    if (!check_selected()) {
       alert ('请选择至少一个产品');
       return false;
     }
-    var opmode = $('#opmode').val();
-    var form = $('#frmPdcts');
-    if (opmode == 1) {
-      form.attr('action', batch_destroy_action);
-      if (window.confirm('确定要删除这些产品吗？（相关报表也会同时删除）')) {
-        form.submit();
-      }
-    } else if (opmode == 2) {
-      $('#set_status_modal').modal({show: true, keyboard: true, backdrop: 'static'});
-
-      $('#btnChangeStatus').unbind('click');
-      $('#btnChangeStatus').click(function() {
-        var status = $("#rdStatus:checked").val();
-        form.attr('action', batch_update_status_action + '?status=' + status);
-        form.submit();
-        $('#set_status_modal').modal('hide');
-      });
-    } else if (opmode == 3) {
-      $('#set_tags_modal').modal({show: true, keyboard: true, backdrop: 'static'});
-
-      $('#btnChangeTags').unbind('click');
-      $('#btnChangeTags').click(function() {
-        var tags = $("#tags").val();
-        form.attr('action', batch_update_tags_action + '?tags=' + encodeURIComponent(tags));
-        form.submit();
-        $('#set_tags_modal').modal('hide');
-      });
-    } else {
-
+    form.attr('action', '<%= batch_destroy_products_path %>');
+    if (window.confirm('确定要删除这些产品吗？（相关报表也会同时删除）')) {
+      form.submit();
     }
+  });
+
+  $('#op_status').click(function() {
+    if (!check_selected()) {
+      alert ('请选择至少一个产品');
+      return false;
+    }
+    $('#set_status_modal').modal({show: true, keyboard: true, backdrop: 'static'});
+    $('#btnChangeStatus').unbind('click');
+    $('#btnChangeStatus').click(function() {
+      var status = $("#rdStatus:checked").val();
+      form.attr('action', '<%= batch_update_status_products_path %>?status=' + status);
+      form.submit();
+      $('#set_status_modal').modal('hide');
+    });
+  });
+
+  $('#op_tag').click(function() {
+    if (!check_selected()) {
+      alert ('请选择至少一个产品');
+      return false;
+    }
+    $('#set_tags_modal').modal({show: true, keyboard: true, backdrop: 'static'});
+    $('#btnChangeTags').unbind('click');
+    $('#btnChangeTags').click(function() {
+      var tags = $("#tags").val();
+      form.attr('action', '<%= batch_update_tags_products_path %>?tags=' + encodeURIComponent(tags));
+      form.submit();
+      $('#set_tags_modal').modal('hide');
+    });
+  });
+
+  $('.btn-group .btn').click(function(e) {
+    e.preventDefault();
   });
 
   $('#chxAll').click(function() {
     if ($(this).attr('checked')) {
-      $('#frmPdcts :input[:type="checkbox"]').attr('checked', true);
+      $('#frmPdcts input:checkbox').attr('checked', true);
     } else {
-      $('#frmPdcts :input[:type="checkbox"]').attr('checked', false);
+      $('#frmPdcts input:checkbox').attr('checked', false);
     }
   });
 

@@ -44,6 +44,9 @@
           <label></label>
           <%= submit_tag '提 交', :class => 'btn_green size-max' %>
           </li>
+          <li>
+          如果您已经注册过，但是没有收到或者丢失激活邮件，您可以：<%= link_to '重新发送验证邮件', send_activation_email_users_path %>
+          </li>
         </ul>
       <% end %>
     </div>

@@ -3,7 +3,7 @@
     <%= render :partial => 'productlist' %>
   </div>
   <div class="ad_right ad_product_right" id="product_detail">
-    <%= render :partial => 'init' %>
+    <%= render :partial => 'new' %>
   </div>
 </div>
 <script>
@@ -11,6 +11,8 @@ $(document).ready(function(){
   var s = window.location.hash;
   if (s == '#new') {
     $('.icon_product a:first').trigger('click');
+  } else {
+    $('.table_data1 a:first').trigger('click');
   }
 });
 </script>  

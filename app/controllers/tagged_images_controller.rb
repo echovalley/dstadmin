@@ -1,4 +1,6 @@
 # encoding: utf-8
+require 'uri'
+
 class TaggedImagesController < ApplicationController
   
   ROWS_PRE_PAGE = 5
@@ -31,14 +33,16 @@ class TaggedImagesController < ApplicationController
 
   # GET /tagged_images/1
   def show
-    @website = Website.find_by_wcode(params[:website_id])
+    #@website = Website.find_by_wcode(params[:website_id])
+    website_info
     @tagged_image = TaggedImage.includes(:spots).where(:id => params[:id]).first
     @products = @tagged_image.get_linked_products
 
     @statistics = get_tagged_image_statistics(@tagged_image.id, Date.today-7, Date.today)
 
     respond_to do |format|
-      format.js # show.js.erb
+      #format.js # show.js.erb
+      format.html
     end
   end
 
@@ -56,6 +60,22 @@ class TaggedImagesController < ApplicationController
     @statistics = get_spots_statistics(params[:id], params[:start_date], params[:end_date])
     respond_to do |format|
       format.js
+    end
+  end
+
+  # GET /tagged_images/1/update_title
+  def update_title
+    tagged_image = TaggedImage.find_by_id(params[:id])
+    title = URI.unescape(params[:title])
+
+    respond_to do |format|
+      if tagged_image.update_attributes(:title => title)
+        flash[:success] = '修改成功'
+        format.js { render :text => 1 }
+      else
+        flash[:error] = '修改失败'
+        format.js { render :text => 0 }
+      end
     end
   end
 

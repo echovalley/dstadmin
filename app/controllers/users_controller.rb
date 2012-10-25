@@ -65,19 +65,33 @@ class UsersController < ApplicationController
     end
   end
 
+
   # GET /users/send_activation_email
   def send_activation_email
+    respond_to do |format|
+      format.html # send_activation_email.html.erb
+    end
+  end
+
+  # POST /users/send_activation_email
+  def post_activation_email
     user = User.find_by_email(params[:email])
     if user.present?
-      user.update_activation_code
-      user.save
-      UserMailer.activation_email(user.email, activate_users_url + '?code=' + user.activation_code).deliver
-      flash[:success] = '已发出验证码'
+      if user.status != User::STATUS_UNACTIVE
+        flash[:error] = '该用户已被激活'
+      else
+        user.update_activation_code
+        user.save
+        UserMailer.activation_email(user.email, activate_users_url + '?code=' + user.activation_code).deliver
+        flash[:success] = '已发出验证码'
+      end
       @email = params[:email]
     else
       flash[:error] = '无此用户'
     end
-    format.html
+    respond_to do |format|
+      format.html { redirect_to send_activation_email_users_path }
+    end
   end
 
   # GET /users/signup_adv

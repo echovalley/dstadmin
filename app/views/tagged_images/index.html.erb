@@ -1,21 +1,39 @@
+<%= javascript_include_tag 'jquery.masonry.min' %>
 <div class="content">
   <%= render 'website' %>
   <%= tagged_images_bar(@website.wcode, @website.tagged_images_number, @website.untagged_images_number) %>
 
-  <div class="head_mypic">
-    <label>图片列表:</label>
-    <%#= select_tag :order_by, options_for_select({'按上传时间排序 ' => 1, '按名称排序' => 2}, @order_by.blank? ? 1 : @order_by) %>
-    <label class="label_headright">图片详细信息：</label>
+  <div class="bg_green relative">
+    <%= form_tag(search_website_tagged_images_path(@website.wcode), :remote => true, :method => 'get', :id => 'frmSearch') do %>
+      <%= select_tag :order_by, options_for_select({'按上传时间排序 ' => 1, '按名称排序' => 2}, @order_by.blank? ? 1 : @order_by) %>.
+      <%= text_field_tag 'keyword', @keyword.blank? ? '' : @keyword %>
+      <%= button_tag '', :class => 'icon_search absolute', :id => 'btnSearch' %>
+    <% end %>
   </div>
 
-  <div class="fullwidth">
-    <aside class="publish_left">
+  <style>
+    .item {
+      width: 220px;
+      margin: 10px;
+      float: left;
+    }
+  </style>
+  <div id="container">
     <%= render 'tagged_image_list' %>
-    </aside>
-
-    <div class="publish_right">
-      Index here
-    </div>
-    <div class="clear"></div>
   </div>
+  <nav class="page">
+  <%= will_paginate @tagged_images, :class => 'pagination pagenavi', :previous_label => '上一页', :next_label => '下一页' %>
+  </nav>
+  <a class="nav-toggle" href="#">Hide</a>
+
 </div>
+
+<script>
+  $(function(){
+    $('#container').masonry({
+      // options
+      itemSelector : '.item',
+      columnWidth : 240
+    });
+  });
+</script>  

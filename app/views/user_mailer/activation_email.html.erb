@@ -5,7 +5,7 @@
   </head>
   <body>
     <p>欢迎加入Adspot，请点击以下链接来激活您的账号：</p>
-    <p><strong><%= @activate_url %></strong></p>
+    <p><strong><%= link_to(@activate_url, @activate_url, :target => '_blank') %></strong></p>
     <p>如果您无法直接点击，请拷贝此地址到浏览器的地址栏并回车。</p>
     <p>一旦您通过认证，您就可以在Adspot中设置您的网站，并自由的选择您网站上的图片关联到相关的产品，并获取收入。</p>
     <p>感谢您选择Adspot，我们坚信这是您的正确选择。</p>

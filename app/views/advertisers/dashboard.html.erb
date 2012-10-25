@@ -12,9 +12,17 @@
       <div id="flot">
         <div id="chart_legend" style="width:300px"></div>
         <span>
-          <% [7,15,30,60,120].each do |t| %>
-            <%= link_to "最近#{t}天", dashboard_advertiser_path + "?period=#{t}" %>
-          <% end %>
+          <div class="btn-group">
+            <button class="btn btn" style="width:100px">时间范围</button>
+            <button class="btn btn dropdown-toggle" data-toggle="dropdown">
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+              <% [7,15,30,60,120].each do |t| %>
+                <li><%= link_to "最近#{t}天", dashboard_advertiser_path + "?period=#{t}" %></li>
+              <% end %>
+            </ul>
+          </div>
         </span>
         <div id="chart_placement" style="width:960px;height:200px"></div>
       </div>

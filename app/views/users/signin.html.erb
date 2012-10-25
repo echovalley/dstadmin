@@ -29,6 +29,9 @@
       rules: {
         email: { required: true, email: true },
         password: { required: true, minlength: 6 }
+      },
+      success: function(label) {
+        label.removeClass("wrong").addClass("right");
       }
     });
   });

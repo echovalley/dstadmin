@@ -30,6 +30,7 @@ Dstadmin::Application.routes.draw do
       member do
         get 'statistics_tagged_image'
         get 'statistics_spots'
+        get 'update_title'
       end
     end
     resources :untagged_images do
@@ -45,7 +46,8 @@ Dstadmin::Application.routes.draw do
       get 'check_email'
       post 'signup' => 'users#signup_submit'
       get 'activate'
-      get 'send_activation_email'
+      get 'send_activation_email' => 'users#send_activation_email', :as => 'send_activation_email'
+      post 'send_activation_email' => 'users#post_activation_email', :as => 'post_activation_email'
       get 'signup_adv' => 'users#signup_adv'
       post 'signup_adv' => 'users#signup_adv_submit'
       get 'signin' => 'users#signin'

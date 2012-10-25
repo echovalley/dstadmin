@@ -7,6 +7,7 @@ class Product < ActiveRecord::Base
   PRICING_CPA = 2
   PRICING_CPS = 3
 
+  attr_accessor :spots_number
   attr_accessible :brand, :click_target, :delivery_rule, :delivery_type, :description, :pcode, :pdct_price, :unit_price, :pdct_thumb, :pname, :pricing, :status, :upper_limit, :avatar
   has_attached_file :avatar, 
     :default_style => :thumb,
@@ -81,6 +82,11 @@ class Product < ActiveRecord::Base
     if self.avatar.present?
       self.pdct_thumb = $1 if self.avatar.url =~ /^(.+)\?\d+$/
     end
+  end
+
+  #Count how many spots under tagged_images 
+  def count_spots
+    self.spots_number = Spot.where(:product_id => self.id).count
   end
 
   #private

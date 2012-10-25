@@ -1,0 +1,27 @@
+<div class="content fixwidth">
+  <%= notice_div %>
+  <div class="login_area">
+    <h1>重发验证信</h1>
+    <div class="box_gray_around login_content">
+      <%= form_tag(send_activation_email_users_path) do %>
+        <ul>
+          <li><label>请输入发送邮箱</label><%= email_field_tag 'email', @email.blank? ? '' : @email %></li>
+          <li><label>验证码</label>
+          <div class="captcha">
+            <%= show_simple_captcha :label => '请输入上面的字符' %>
+          </div>
+          <div class="notice_form">
+            <i class="normal"><%= link_to '看不清楚？换张图片', refresh_captcha_path, :remote => true %></i>
+          </div>
+          <li>
+          <li>
+            <label></label><%= submit_tag '发送', :class => 'btn_green size-max' %>
+            <span><%= link_to '返回登录', signin_users_path %></span>
+            <span><%= link_to '注册新用户', signup_users_path %></span>
+          </li>
+        </ul>
+      <% end %>
+    </div>
+  </div>
+</div>
+<%= notice_javascript %>

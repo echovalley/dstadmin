@@ -6,6 +6,7 @@ class ProductsController < ApplicationController
   # GET /products
   def index
     refresh_product_list
+    @product = Product.new
     respond_to do |format|
       format.html # index.html.erb
       format.js #index.js.erb
@@ -99,6 +100,7 @@ class ProductsController < ApplicationController
   def search
     params[:advertiser_id] = get_current_advertiser_id
     @products = Product.search(params).paginate(:page => params[:page], :per_page => ROWS_PRE_PAGE)
+    @products.each { |p| p.count_spots }
 
     @keyword = params[:keyword]
     @status = params[:status]
@@ -227,6 +229,7 @@ class ProductsController < ApplicationController
     @products = Product.list(get_current_advertiser_id).paginate(:page => params[:page], :per_page => ROWS_PRE_PAGE)
     @total_number = Product.count_products_by_advertiser get_current_advertiser_id
     @spotted_number = Product.count_products_spotted_by_advertiser get_current_advertiser_id
+    @products.each { |p| p.count_spots }
   end
 
 end

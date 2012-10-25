@@ -8,7 +8,11 @@ class WebsitesController < ApplicationController
   def index
     @websites = my_websites
     respond_to do |format|
-      format.html
+      if @websites.blank?
+        format.html { redirect_to new_website_path }
+      else
+        format.html
+      end
     end
   end
 

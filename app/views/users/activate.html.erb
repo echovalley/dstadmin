@@ -8,7 +8,8 @@
       <h2><strong class="hred">验证失败</strong></h2>
       <dl>
         <dd><%= link_to '返回登录', signin_users_path %></dd>
-        <dd><%= link_to '注册', signup_users_path %></dd>
+        <dd><%= link_to '重新发送验证邮件', send_activation_email_users_path %></dd>
+        <dd><%= link_to '注册新账号', signup_users_path %></dd>
       </dl>
     <% end %>
   </div>
