@@ -31,7 +31,8 @@
         password: { required: true, minlength: 6 }
       },
       success: function(label) {
-        label.removeClass("wrong").addClass("right");
+        label.removeClass("wrong");
+        label.parent().css('visibility','hidden');
       }
     });
   });

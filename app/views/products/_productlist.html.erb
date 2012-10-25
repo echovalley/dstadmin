@@ -46,9 +46,9 @@
   <div class="bg_gray tablenav">
     <input id="chxAll" name="chxAll" type="checkbox" />
 
-    <div class="btn-group">
-      <button class="btn" style='width:100px'>操作</button>
-      <button class="btn dropdown-toggle" data-toggle="dropdown">
+    <div class="btn-group" style="display:inline-block">
+      <button class="btn btn-small" style='width:70px'>操作</button>
+      <button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
         <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
@@ -71,12 +71,12 @@
     <h3>更新产品状态</h3>
   </div>
   <div class="modal-body">
-    <input type="radio" id="rdStatus" name="rdStatus" value=1 checked />正常
-    <input type="radio" id="rdStatus" name="rdStatus" value=2 />暂停
+    <input type="radio" id="rdStatus" name="rdStatus" value=1 checked /> 正常 
+    <input type="radio" id="rdStatus" name="rdStatus" value=2 style="margin-left:30px"/> 暂停
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">关 闭</a>
-    <a href="#" id="btnChangeStatus" class="btn btn-primary">修 改</a>
+    <a href="#" id="btnChangeStatus" class="btn btn-success">修 改</a>
   </div>
 </div>
 
@@ -87,12 +87,12 @@
   </div>
   <div class="modal-body">
     <label>标签：</label>
-    <%= text_field_tag 'tags', '' %>
-    <%= form_notice('请精确输入产品的标签(多个标签用空格隔开)，以便我们精确匹配图片') %>
+    <%= text_field_tag 'tags', '', {:style => 'width:300px'} %>
+    <div class="notice_form" style="padding-left:100px;margin-top:8px"><i class="normal">请精确输入产品的标签(多个标签用空格隔开)，以便我们精确匹配图片</i></div>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">关 闭</a>
-    <a href="#" id="btnChangeTags" class="btn btn-primary">修 改</a>
+    <a href="#" id="btnChangeTags" class="btn btn-success">修 改</a>
   </div>
 </div>
 

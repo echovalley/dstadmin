@@ -156,9 +156,11 @@ table tbody td{color: #797979}
 table.table_data1{border: 0px}
 table.table_data1 th{background: #fff;border-bottom: 1px solid #4f4f4f;padding: 3px 6px;text-align: left}
 table.table_data1 tr:nth-child(2n){background: #f8f8f8}
-.checkbox_list{padding: 2px}
+.mysitelist tr{height:30px;line-height:30px;border-bottom:1px solid #e6e6e6}
+checkbox_list{padding: 2px}
 .width1 {width: 120px}
 .width2 {width: 80px}
+
 /* -- 8. register&login PAGES -- */
 .captcha {display: inline-block}
 .captcha .simple_captcha,.captcha .simple_captcha .simple_captcha_field{border: none;padding: 0px!important}
@@ -182,6 +184,7 @@ table.table_data1 tr:nth-child(2n){background: #f8f8f8}
 .notice_form i.normal{background: none;padding-left: 0px}
 .notice_form i.right{color: #64b02e}
 .notice_form i.wrong{color: #ee322d;background-position: left -20px}
+.login_content .notice_form{padding-left: 110px;}
 input.captcha_field{width: 160px}
 .form_left ul li.notice_item{margin: 0px 0px 4px 6px}
 .tab1,.tab2{overflow: hidden}
@@ -197,7 +200,13 @@ input.captcha_field{width: 160px}
     background: -moz-linear-gradient(#77b631,#62a420);color: #fff;padding: 3px 0px;border-top: 1px solid #fff}
 .bg_gray{background: -webkit-linear-gradient(#e6e6e6,#d1d1d1);
     background: -moz-linear-gradient(#e6e6e6,#d1d1d1);padding: 3px 0px;border-top: 1px solid #fff;border-bottom: 1px solid #bababa}
-
+.mysetting span {
+    color: #999999;
+    display: inline-block;
+    margin: 4px 0 16px;
+    font-size: 16px;
+}
+.mysetting  .form_left li{margin-bottom:12px}
 
 /* -- 9. publish PAGES -- */
 .add_newsite{margin-top: 12px}
@@ -434,7 +443,7 @@ nav.page ul li a:active {
 	}				
 nav.page ul li select{padding: 5px;height: 27px;}
 
-.btn, .btn:visited, .more-link, .more-link:visited {
+.more-link, .more-link:visited {
 	display: inline-block; 
 	padding: 0px; 
 	font-size:11px;
@@ -444,7 +453,7 @@ nav.page ul li select{padding: 5px;height: 27px;}
 	border-bottom:1px dotted #aaa;
 }
 
-.btn:hover, .more-link:hover { 
+.more-link:hover { 
 	text-decoration:none;
 	color:#333;
 	border-bottom:1px solid #ffcc33
@@ -510,7 +519,7 @@ input.size-max{width: 300px}
 .hide { display:none }
 
 /* -- 12. Icon -- */
-a.icon_edit,a.icon_delete,a.icon_code{height: 12px;background: url(/assets/icon12_action.png) left top no-repeat;padding-left: 16px;font-size: 12px}
+a.icon_edit,a.icon_delete,a.icon_code{height: 12px;background: url(/assets/icon12_action.png) left top no-repeat;padding-left: 16px;font-size: 12px; margin-left: 8px;}
 a.icon_delete{background-position: left -28px}
 a.icon_code{background-position: left -58px}
 a.icon_edit:hover{background-position: left -15px}

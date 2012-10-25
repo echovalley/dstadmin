@@ -9,8 +9,8 @@ module ApplicationHelper
     if session[:curadv].present?
       p = content_tag(:li, link_to('我的首页', dashboard_advertiser_path), :class => current_page?(:controller => 'advertisers', :action => 'dashboard') ? 'nav_ad_select' : nil)
       p << content_tag(:li, link_to('我的产品', products_path), :class => current_page?(:controller => 'products') ? 'nav_ad_select' : nil)
-      p << content_tag(:li, link_to('我的图片', '#'))
-      p << content_tag(:li, link_to('怎么使用', '#'))
+      #p << content_tag(:li, link_to('我的图片', '#'))
+      #p << content_tag(:li, link_to('怎么使用', '#'))
     else
     end
   end
@@ -19,7 +19,7 @@ module ApplicationHelper
     email = session[:user_email]
     user_code = session[:user]
     if email.present?
-      p = link_to '设置', { :action => 'change_password', :controller => 'users', :id => user_code }, :class => 'noborderleft'
+      p = link_to '修改密码', { :action => 'change_password', :controller => 'users', :id => user_code }, :class => 'noborderleft'
       #p += link_to '消 息', '#'
       p += link_to '我的所有网站', websites_path if session[:curadv].blank?
       p += link_to '登 出', signout_users_path
@@ -61,6 +61,10 @@ module ApplicationHelper
       });
       ".html_safe
     end
+  end
+
+  def number_format(number)
+    return number.blank? ? '-' : number
   end
 
 end

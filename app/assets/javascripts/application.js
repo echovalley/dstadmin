@@ -33,6 +33,7 @@ jQuery.validator.setDefaults({
   errorElement: 'i',
   errorPlacement: function(error, element) {
     var noticeform = element.closest('li').children('.notice_form');
+    noticeform.css('visibility', 'visible');
     noticeform.children(":not(.normal)").remove();
     noticeform.children(".normal").hide();
     noticeform.append(error);

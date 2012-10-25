@@ -46,11 +46,13 @@ class Website < ActiveRecord::Base
   #Count total income
   def count_total_income
     statistics = SpotStatistics.search(:website_id => self.id, :start_date => '2012-7-1'.to_date)
-    totalincome = 0
-    statistics.each do |t|
-      totalincome += t.income
+    if statistics.present?
+      totalincome = 0
+      statistics.each { |t| totalincome += t.income }
+      self.total_income = totalincome
+    else
+      self.total_income = 0
     end
-    self.total_income = totalincome
   end
 
   #Assign website to user

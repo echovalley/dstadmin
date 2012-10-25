@@ -20,10 +20,10 @@ module TaggedImagesHelper
   end
 
   def tagged_images_thumbnail(tagged_image)
-    TAGGED_IMAGE_THUMBNAIL_URL + tagged_image.id.to_s + '_60.jpg'
+    TAGGED_IMAGE_THUMBNAIL_URL + tagged_image.id.to_s + '_350.jpg'
   end
 
   def default_thumbnail()
-    image_path('default_thumb_60.jpg')
+    image_path('default_thumb_350.jpg')
   end
 end

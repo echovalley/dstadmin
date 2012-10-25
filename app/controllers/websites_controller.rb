@@ -137,7 +137,15 @@ class WebsitesController < ApplicationController
 
   #Search all websites already pass verification
   def my_websites
-    Website.search_by_user(get_current_user)
+    websites = Website.search_by_user(get_current_user)
+    websites.each do |w| 
+      if w.status ==  Website::STATUS_VERIFIED
+        w.count_tagged_images
+        w.count_spots
+        w.count_total_income
+      end
+    end
+    return websites
   end
 
   def check_access_permission

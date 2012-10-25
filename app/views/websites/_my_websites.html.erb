@@ -1,7 +1,7 @@
-<h4>我的网站</h4>
-<span><%= link_to '添加新网站', new_website_path %></span>
-<table>
-  <thead><tr><th>网站名称</th><th>域名</th><th>图片数</th><th>锚点数</th><th>收 益</th><th>操作</th></tr></thead>
+<h2 style="display:inline-block">我的网站</h2>
+<span style="float:right"><%= link_to '+ 添加新网站', new_website_path, :class => 'btn_green size-m' %></span>
+<table class="mysitelist">
+  <thead><tr><th>网站名称</th><th>域名</th><th>图片数</th><th>锚点数</th><th>收 益</th><th style="width:230px;text-align:center">操作</th></tr></thead>
   <tbody>
     <% @websites.each do |w| %>
       <tr>
@@ -16,20 +16,14 @@
           <%= w.url %>
           <% if w.status == Website::STATUS_NOTVERIFIED %><%= link_to '(未验证，点击验证)', verify_website_path(w.wcode) %><% end %>
         </td>
-        <td><%= w.tagged_images_number %></td>
-        <td><%= w.spots_number %></td>
-        <td><%= w.total_income %></td>
+        <td><%= number_format(w.tagged_images_number) %></td>
+        <td><%= number_format(w.spots_number) %></td>
+        <td><%= number_format(w.total_income) %></td>
         <td>
-          <%= link_to edit_website_path(w.wcode), :title => '编辑网站信息' do %>
-            <%= content_tag :i, '', :class => 'icon-pencil' %>
-          <% end %>
-          <%= link_to destroy_website_path(w.wcode), :method => :delete, :confirm => '确定删除？所有数据都将被删除', :title => '删除网站' do %>
-            <%= content_tag :i, '', :class => 'icon-remove' %>
-          <% end %>
+          <%= link_to '修改信息', edit_website_path(w.wcode), :class => 'icon_edit' %>
+          <%= link_to '删除网站', destroy_website_path(w.wcode), :method => :delete, :confirm => '确定删除？所有数据都将被删除', :class => 'icon_delete' %>
           <% if w.status == Website::STATUS_VERIFIED %>
-            <%= link_to code_website_path(w.wcode), :title => '获取配置代码' do %>
-              <%= content_tag :i, '', :class => 'icon-code' %>
-            <% end %>
+            <%= link_to '获取代码', code_website_path(w.wcode), :class => 'icon_code' %>
           <% end %>
         </td>
       </tr>
