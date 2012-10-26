@@ -19,11 +19,11 @@ module TaggedImagesHelper
     end
   end
 
-  def tagged_images_thumbnail(tagged_image)
-    TAGGED_IMAGE_THUMBNAIL_URL + tagged_image.id.to_s + '_350.jpg'
+  def tagged_images_thumbnail(tagged_image, size = 200)
+    TAGGED_IMAGE_THUMBNAIL_URL + tagged_image.id.to_s + "_#{size}.jpg"
   end
 
-  def default_thumbnail()
-    image_path('default_thumb_350.jpg')
+  def default_thumbnail(size)
+    image_path("default_thumb_#{size}.jpg")
   end
 end

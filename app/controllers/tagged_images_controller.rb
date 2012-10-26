@@ -11,6 +11,7 @@ class TaggedImagesController < ApplicationController
   def index
     website_info
     @tagged_images = TaggedImage.find_by_website(@website.id, 'created_at').paginate(:page => params[:page], :per_page => ROWS_PRE_PAGE)
+    #@tagged_images = TaggedImage.find_by_website(@website.id, 'created_at')
     @tagged_images.each { |t| t.count_spots }
     respond_to do |format|
       format.html
@@ -22,6 +23,7 @@ class TaggedImagesController < ApplicationController
     @website = Website.find_by_wcode(params[:website_id])
     params[:website_id] = @website.id #use true id instead of wcode
     @tagged_images = TaggedImage.search(params).paginate(:page => params[:page], :per_page => ROWS_PRE_PAGE)
+    #@tagged_images = TaggedImage.search(params)
     @tagged_images.each { |t| t.count_spots }
     @keyword = params[:keyword]
     @order_by = params[:order_by]

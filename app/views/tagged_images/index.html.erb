@@ -1,7 +1,8 @@
 <%= javascript_include_tag 'jquery.masonry.min' %>
+<%= javascript_include_tag 'jquery.infinitescroll' %>
 <div class="content">
   <%= render 'website' %>
-  <%= tagged_images_bar(@website.wcode, @website.tagged_images_number, @website.untagged_images_number) %>
+  <%#= tagged_images_bar(@website.wcode, @website.tagged_images_number, @website.untagged_images_number) %>
 
   <div class="bg_green relative">
     <%= form_tag(search_website_tagged_images_path(@website.wcode), :remote => true, :method => 'get', :id => 'frmSearch') do %>
@@ -21,19 +22,25 @@
   <div id="container">
     <%= render 'tagged_image_list' %>
   </div>
+
   <nav class="page">
   <%= will_paginate @tagged_images, :class => 'pagination pagenavi', :previous_label => '上一页', :next_label => '下一页' %>
   </nav>
   <a class="nav-toggle" href="#">Hide</a>
-
 </div>
 
 <script>
-  $(function(){
-    $('#container').masonry({
-      // options
-      itemSelector : '.item',
-      columnWidth : 240
-    });
+$(document).ready(function(){
+  $('#container').masonry({
+    // options
+    itemSelector : '.item',
+    columnWidth : 240
   });
+  $('#container').infinitescroll({
+    navSelector  : "nav.page",
+    nextSelector : "nav.page a.next_page",
+    itemSelector : "#container .item"
+  });
+});
+
 </script>  

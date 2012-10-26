@@ -1,7 +1,11 @@
 <%= notice_div %>
 <div class="content fixwidth2">
   <%= render 'my_websites' %>
-  <%= new_website_crumb('step1') %>
+  <% if @website.verified %>
+    <div class='add_newsite'><h3>修改网站信息</h3></div>
+  <% else %>
+    <%= new_website_crumb('step1') %>
+  <% end %>
   <div class="clear"></div>
   <div class="box_gray_around add_siteinfo">
     <%= form_for(@website, :html => {:id => "website_info"}) do |f| %>
@@ -13,12 +17,11 @@
         </li>
         <li>
         <label>网站地址</label>
-        <% if @website.id.blank? %>
+        <% if @website.url.blank? %>
           <%= f.text_field :url %>
           <%= form_notice('') %>
         <% else %>
-          <%= f.text_field :url, :readonly => true %>
-          <%= form_notice('网站地址不可修改') %>
+          <%= @website.url %>
         <% end %>
         </li>
         <li>
@@ -42,7 +45,7 @@
   $(document).ready(function(){
     $("#website_info").validate({
       rules: {
-        'website[wname]': { required: true, minlength: 3 },
+        'website[wname]': { required: true },
         'website[url]': { required: true, domain: true }
       }
     });

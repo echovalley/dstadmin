@@ -1,6 +1,6 @@
 <% @tagged_images.each do |t| %>
   <div class="item">
-    <%= link_to(image_tag(tagged_images_thumbnail(t), :alt => t.title, :onError => "this.src='#{default_thumbnail()}'"), website_tagged_image_path(:id => t.id, :website_id => @website.wcode)) %>
+    <%= link_to(image_tag(tagged_images_thumbnail(t, 200), :alt => t.title, :onError => "this.src='#{default_thumbnail(200)}'"), website_tagged_image_path(:id => t.id, :website_id => @website.wcode)) %>
     <ul>
     <li><label>标签：</label><%= t.title %></li>
     <li><label>锚点：</label><%= t.spots_number %></li>

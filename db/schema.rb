@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120914065605) do
+ActiveRecord::Schema.define(:version => 20121026030557) do
 
   create_table "advertisers", :force => true do |t|
     t.string   "code",       :limit => 10,                    :null => false
@@ -172,7 +172,7 @@ ActiveRecord::Schema.define(:version => 20120914065605) do
     t.string   "url",                                               :null => false
     t.integer  "pv",                                 :default => 1, :null => false
     t.integer  "website_category_id",                               :null => false
-    t.integer  "status",                             :default => 1, :null => false
+    t.integer  "status",                             :default => 2, :null => false
     t.datetime "created_at",                                        :null => false
     t.datetime "updated_at",                                        :null => false
   end

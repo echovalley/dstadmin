@@ -355,7 +355,7 @@ span.noborderleft,.tag a.noborderleft{border-left: none;padding-left: 0px}
 .icon_status_pause{background-position: left -20px;color:#64b02e }
 .ad_left .bg_green label{vertical-align: middle}
 .ad_left .quick_search input[type="text"]{width: 182px;border-radius: 0px 5px 5px 0px}
-.quick_search select{width: 80px;border-radius: 0px;padding:4px;border: 1px solid #797979;position: relative;right: -5px;background: #e5e5e5;box-shadow:0 0 0px;background: -webkit-linear-gradient(#f4f4f4,#dadada);
+.quick_search select{width: 80px;height: 27px;border-radius: 0px;padding:4px;border: 1px solid #797979;position: relative;right: -5px;background: #e5e5e5;box-shadow:0 0 0px;background: -webkit-linear-gradient(#f4f4f4,#dadada);
     background: -moz-linear-gradient(#f4f4f4,#dadada);}
 .tablenav{padding:6px 2px}
 .tablenav select,.pagenavi input[type="number"]{width: 80px;padding:3px 2px 4px 2px ;border: 1px solid #797979;border-radius: 0px}

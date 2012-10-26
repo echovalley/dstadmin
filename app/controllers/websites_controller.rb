@@ -32,7 +32,7 @@ class WebsitesController < ApplicationController
     respond_to do |format|
       @websites = my_websites
       @website_categories = WebsiteCategory.all
-      format.html { render @website.verified ? 'edit' : 'properties' }
+      format.html { render 'properties' }
     end
   end
 

@@ -5,21 +5,13 @@ class FlotFormat
     impr_array = []
     ck_array = []
     hash = {}
-    
-    min_date = max_date = nil
 
-    array.each do |t| 
-      max_date = t.log_date if max_date.blank? || max_date < t.log_date 
-      min_date = t.log_date if min_date.blank? || min_date > t.log_date 
+    array.each do |t|
       hash[t.log_date] = [t.impression, t.click]
     end
 
-    if min_date.blank?
-      max_date = Date.today
-      min_date = Date.today - 7
-    else
-      min_date = max_date - ticks if max_date - min_date < ticks
-    end
+    max_date = Date.today
+    min_date = Date.today - ticks
 
     (min_date .. max_date).each do |t|
       impr = ck = 0
