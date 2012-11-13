@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121026030557) do
+ActiveRecord::Schema.define(:version => 20121113030539) do
 
   create_table "advertisers", :force => true do |t|
     t.string   "code",       :limit => 10,                    :null => false
@@ -84,19 +84,19 @@ ActiveRecord::Schema.define(:version => 20121026030557) do
   end
 
   create_table "spots", :force => true do |t|
-    t.integer  "spot_type",                                      :null => false
-    t.integer  "tagged_image_id",                                :null => false
-    t.integer  "margin_x",                       :default => 0,  :null => false
-    t.integer  "margin_y",                       :default => 0,  :null => false
+    t.integer  "spot_type",                                                                     :null => false
+    t.integer  "tagged_image_id",                                                               :null => false
     t.string   "link_addr"
-    t.string   "link_title",      :limit => 100, :default => ""
+    t.string   "link_title",      :limit => 100,                               :default => ""
     t.string   "link_desc"
     t.string   "link_thumb"
     t.string   "link_css",        :limit => 10
-    t.integer  "product_id",                     :default => 0
+    t.integer  "product_id",                                                   :default => 0
     t.string   "search_tag"
-    t.datetime "created_at",                                     :null => false
-    t.datetime "updated_at",                                     :null => false
+    t.datetime "created_at",                                                                    :null => false
+    t.datetime "updated_at",                                                                    :null => false
+    t.decimal  "x_offset_ratio",                 :precision => 5, :scale => 4, :default => 0.5, :null => false
+    t.decimal  "y_offset_ratio",                 :precision => 5, :scale => 4, :default => 0.5, :null => false
   end
 
   add_index "spots", ["product_id"], :name => "idx_product_id"

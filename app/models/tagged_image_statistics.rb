@@ -47,7 +47,7 @@ class TaggedImageStatistics < ActiveRecord::Base
     return statistics
   end
 
-private
+  private
 
   def self.default_start_date
     '2012-1-1'.to_date

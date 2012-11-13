@@ -38,4 +38,9 @@ protected
     session[:user]
   end
 
+  # Extend cookie expiry, like cookies[:u]
+  def extend_cookie_expiry(extra_hour)
+    cookies[:u] = { :value => session[:user], :expires => extra_hour.hour.from_now, :domain => Utils.get_main_domain(request.host) || 'adspot.cn' }
+  end
+
 end

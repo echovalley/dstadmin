@@ -1,6 +1,6 @@
 class TaggedImage < ActiveRecord::Base
   attr_accessible :access_status, :height, :remote_addr, :spot_by_adv, :spot_by_adv_rule, :thumb, :title, :width, :locate_url
-  attr_accessor :spots_number
+  attr_accessor :spots_number, :hover, :impression, :click, :spots_impression, :spots_click, :income
   belongs_to :website
   has_many :spots, :dependent => :destroy
   has_many :tagged_image_statistics
@@ -22,6 +22,17 @@ class TaggedImage < ActiveRecord::Base
   def count_spots(spot_type = nil)
     self.spots_number = spot_type.blank?? Spot.where(:tagged_image_id => self.id).count(:id, :distinct => true) 
     : Spot.where(:tagged_image_id => self.id, :spot_type => spot_type).count(:id, :distinct => true)
+  end
+
+  def count_statistics
+    ts = TaggedImageStatistics.search(:tagged_image_id=> self.id).first
+    ss = SpotStatistics.search(:tagged_image_id => self.id).first
+    self.impression = ts.impression
+    self.click = ts.click
+    self.hover = ts.hover
+    self.spots_impression = ss.impression
+    self.spots_click = ss.click
+    self.income = ss.income
   end
 
   def self.search(options = {})
@@ -53,6 +64,10 @@ class TaggedImage < ActiveRecord::Base
   def self.get_website_id_by_spot(spot_id)
     image = TaggedImage.includes(:spots).where(:spots => {:id => spot_id}).first
     image.website_id
+  end
+
+  def get_thumbnail_path(size = 200)
+    TAGGED_IMAGE_THUMBNAIL_URL + self.id.to_s + "_#{size}.jpg"
   end
 
 end

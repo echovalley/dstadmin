@@ -2,12 +2,39 @@
   <% if @product.avatar? %>
     <%= image_tag @product.avatar(:thumb) %>
   <% else %>
-    <%= image_tag 'default_thumb.jpg' %>
+    <%= image_tag 'default_thumb_100.jpg' %>
   <% end %>
   <ul>
     <li>
-    <% link_title = @product.avatar_file_name.blank? ? '上传产品图片' : '编辑缩略图' %>
-    <%= link_to link_title, upload_product_path, :class => 'icon_upload', :remote => true %>
+    <% link_title = @product.avatar_file_name.blank? ? '上传产品图片' : '重新上传产品图片' %>
+    <a href='javascript:void()' id='op_upload'><%= link_title %></a>
     </li>
   </ul>
 </div>
+
+<div class="modal hide" id="upload_modal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>上传产品图片</h3>
+  </div>
+  <%= form_for @product, :url => upload_avatar_product_path, :html => { :multipart => true } do |f| %>
+    <div class="modal-body">
+      <% if @product.avatar_file_name.present? %>
+        <%= image_tag @product.avatar(:thumb) %>
+      <% else %>
+        <%= image_tag 'default_thumb_100.jpg' %>
+      <% end %>
+      <%= f.file_field :avatar %>
+    </div>
+    <div class="modal-footer">
+      <!--a href="#" class="btn" data-dismiss="modal">关 闭</a-->
+      <%= f.submit '上 传', :class => 'btn_green size-l' %>
+    </div>
+  <% end %>
+</div>
+
+<script type='text/javascript'>
+  $('#op_upload').click(function() {
+    $('#upload_modal').modal({show: true, keyboard: true, backdrop: 'static'});
+  });
+</script>

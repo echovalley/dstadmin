@@ -9,8 +9,8 @@ dt_start_arr[4] = "<%= (Date.today - 30).to_s(:db) %>";
 var dt_end = "<%= Date.today.to_s(:db) %>"
 
 $("a.link_statistics").click(function() {
-  $(this).parent().removeClass("ui-tabs-selected");
-  $(this).parent().siblings().addClass("ui-tabs-selected");
+  $(this).parent().siblings().removeClass("ui-tabs-selected");
+  $(this).parent().addClass("ui-tabs-selected");
   refresh_statistics();
 });
 

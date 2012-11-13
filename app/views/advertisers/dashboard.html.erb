@@ -10,7 +10,7 @@
     <div class="data_chart">
       <h2>统计概览:</h2>
       <div id="flot">
-        <div id="chart_legend" style="width:300px"></div>
+        <div id="chart_legend" style="width:135px"></div>
         <span>
           <div class="btn-group">
             <button class="btn btn" style="width:100px">时间范围</button>
@@ -38,9 +38,9 @@
               <td><%= t.website.wname %></td>
               <td><%= t.impression %></td>
               <td><%= t.click %></td>
-              <td><%= number_to_percentage(t.click.to_f/t.impression.to_f) if t.impression.present? && t.click.present? %></td>
+              <td><%= number_to_percentage(t.click.to_f/t.impression.to_f*100, :precision => 2) if t.impression.present? && t.click.present? %></td>
               <td><%= t.income %></td>
-              <td><%= number_to_currency(t.income.to_f/t.impression.to_f, :precision => 3, :unit=>"￥") if t.impression.present? && t.income.present? %></td>
+              <td><%= number_to_currency(t.income.to_f/t.impression.to_f*1000, :precision => 2, :unit=>"￥") if t.impression.present? && t.income.present? %></td>
             </tr>
           <% end %>
         </tbody>
@@ -50,16 +50,16 @@
 </div>
 
 <script>
-  function showTooltip(x, y, contents) {
-    $('<div id="tooltip">' + contents + '</div>').css( {
+function showTooltip(x, y, contents) {
+  $('<div id="tooltip">' + contents + '</div>').css( {
     position: 'absolute',
     display: 'none',
-    top: y + 5,
+    top: y - 30,
     left: x + 5,
     border: '1px solid #fdd',
     padding: '2px',
     'background-color': '#fee',
-    opacity: 0.80
+    opacity: 0.90
   }).appendTo("body").fadeIn(200);
 }
 
@@ -76,8 +76,8 @@ var ck_data = <%= @flot_click_data %>;
 
 var options = {
   xaxes: [ { mode: 'time', timeformat: "%Y/%m/%d", timezone: 'browser', ticks: 7 } ],
-  yaxes: [ { min: 0, ticks: 4 }, { position: 'right', min: 0, ticks: 4, alignTicksWithAxis: 1 } ],
-  legend: { position: 'nw', show: true, container: $('#chart_legend'), noColumns: 0 },
+  yaxes: [ { min: 0, ticks: 3, tickDecimals: 0 }, { position: 'right', min: 0, ticks: 3, alignTicksWithAxis: 1, tickDecimals: 0 } ],
+  legend: { position: 'ne', show: true, container: $('#chart_legend'), noColumns: 0 },
   series: {
     lines: { show: true, lineWidth: 2 },
     points: { show: true, radius: 3 },

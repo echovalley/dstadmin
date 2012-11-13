@@ -9,7 +9,6 @@ Dstadmin::Application.routes.draw do
     end
     member do
       get 'update_status'
-      get 'upload'
       put 'upload_avatar'
       get 'statistics'
     end
@@ -31,6 +30,7 @@ Dstadmin::Application.routes.draw do
         get 'statistics_tagged_image'
         get 'statistics_spots'
         get 'update_title'
+        get 'show_image'
       end
     end
     resources :untagged_images do

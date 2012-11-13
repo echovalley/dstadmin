@@ -1,11 +1,14 @@
 <% @tagged_images.each do |t| %>
-  <div class="item">
-    <%= link_to(image_tag(tagged_images_thumbnail(t, 200), :alt => t.title, :onError => "this.src='#{default_thumbnail(200)}'"), website_tagged_image_path(:id => t.id, :website_id => @website.wcode)) %>
+  <div class="box">
+    <%= link_to(image_tag(t.get_thumbnail_path, :alt => t.title, :onError => "this.src='#{default_thumbnail(200)}'"), website_tagged_image_path(:id => t.id, :website_id => @website.wcode), :title => t.title) %>
     <ul>
-    <li><label>标签：</label><%= t.title %></li>
-    <li><label>锚点：</label><%= t.spots_number %></li>
-    <li><label>记录时间：</label><%= t.created_at.to_s(:db) %></li>
-  </ul>
+      <li><h5><%#= t.title %>别太长</h5></li>
+      <li>
+        <i class="icon-dot"><%= t.spots_number %></i>锚点
+        <i class="icon-dot"><%= t.spots_impression %></i>展示
+        <i class="icon-dot"><%= t.spots_click %></i>点击
+      </li>
+      <li><i><%= t.created_at.to_s(:db) %></i></li>
+    </ul>
   </div>
 <% end %>
-<div class="clear"></div>

@@ -9,9 +9,9 @@
           <td><%= t.spot_id %></td>
           <td><%= t.impression %></td>
           <td><%= t.click %></td>
-          <td><%= number_to_percentage(t.click.to_f/t.impression.to_f*100) if t.impression.present? && t.click.present? %></td>
+          <td><%= number_to_percentage(t.click.to_f/t.impression.to_f*100, :precision => 2) if t.impression.present? && t.click.present? %></td>
           <td><%= t.income %></td>
-          <td><%= number_to_currency(t.income.to_f/t.impression.to_f, :precision => 3, :unit=>"￥") if t.impression.present? && t.income.present? %></td>
+          <td><%= number_to_currency(t.income.to_f/t.impression.to_f*1000, :precision => 2, :unit=>"￥") if t.impression.present? && t.income.present? %></td>
         </tr>
       <% end %>
     </tbody>
@@ -20,9 +20,9 @@
         <td>合计：</td>
         <td><%= @total[:impression] %></td>
         <td><%= @total[:click] %></td>
-        <td><%= number_to_percentage(@total[:click].to_f/@total[:impression].to_f*100) if @total[:impression].present? && @total[:click].present? %></td>
+        <td><%= number_to_percentage(@total[:click].to_f/@total[:impression].to_f*100, :precision => 2) if @total[:impression].present? && @total[:click].present? %></td>
         <td><%= @total[:income] %></td>
-        <td><%= number_to_currency(@total[:income].to_f/@total[:impression].to_f, :precision => 3, :unit=>"￥") if @total[:income].present? && @total[:impression].present? %></td>
+        <td><%= number_to_currency(@total[:income].to_f/@total[:impression].to_f*1000, :precision => 2, :unit=>"￥") if @total[:income].present? && @total[:impression].present? %></td>
       </tr>
     </tfoot>
   <% else %>

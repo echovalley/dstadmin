@@ -61,3 +61,4 @@ group :production do
 end
 
 gem 'nokogiri'
+gem 'httpclient'

@@ -1,2 +1,4 @@
+//$("#container").css('height', '');
+$("#container").removeAttr("style");
 $("#container").html("<%= escape_javascript render('tagged_image_list') %>");
 $(".pagination a").attr("data-remote", "true");

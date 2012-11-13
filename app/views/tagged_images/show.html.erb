@@ -1,11 +1,18 @@
 <%= javascript_include_tag 'xeditable' %>
 <div class="content">
   <%= render 'website' %>
-  <%= link_to '返回图片列表', :back %>
 
-  <h1><span class='xeditable' name='title'><%= @tagged_image.title %></span></h1>
-  <%= image_tag(@tagged_image.remote_addr, :alt => @tagged_image.title) %>
-  <ul class="info_pic">
+  <h1 class="tabs">
+    <%= link_to(:back, :class => 'btn btn-small btn-back') do %>
+      <%= raw(content_tag(:i, '', :class => 'icon-arrow-left') + '返回图片列表') %>
+    <% end %>
+    <span class='xeditable' name='title'><%= @tagged_image.title %></span>
+  </h1>
+  <div id="imgWrap" style="width:600px">
+    <%#= image_tag(@tagged_image.remote_addr, :alt => @tagged_image.title, :class => 'boxshadow') %>
+    <%= image_tag(show_image_website_tagged_image_path(:id => @tagged_image.id, :website_id => @website.wcode), :alt => @tagged_image.title, :class => 'boxshadow', :width => @tagged_image.width, :height => @tagged_image.height, :original_path => @tagged_image.remote_addr) %>
+  </div>
+  <ul>
     <li><span><label>图片尺寸：</label><%= @tagged_image.width %>*<%= @tagged_image.height %></span></li>
     <li><span><label>图片路径：</label><%= @tagged_image.remote_addr %></span></li>
     <li><span><label>标注页面：</label><%= link_to @tagged_image.locate_url, @tagged_image.locate_url, :target => '_blank' %></span></li>

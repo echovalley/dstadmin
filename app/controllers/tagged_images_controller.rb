@@ -1,9 +1,10 @@
 # encoding: utf-8
 require 'uri'
+require 'net/http'
 
 class TaggedImagesController < ApplicationController
-  
-  ROWS_PRE_PAGE = 5
+
+  ROWS_PRE_PAGE = 20
 
   before_filter :check_website_permission
 
@@ -11,8 +12,11 @@ class TaggedImagesController < ApplicationController
   def index
     website_info
     @tagged_images = TaggedImage.find_by_website(@website.id, 'created_at').paginate(:page => params[:page], :per_page => ROWS_PRE_PAGE)
-    #@tagged_images = TaggedImage.find_by_website(@website.id, 'created_at')
-    @tagged_images.each { |t| t.count_spots }
+    @tagged_images.each do |t|
+      t.count_spots
+      t.count_statistics
+    end
+
     respond_to do |format|
       format.html
     end
@@ -20,16 +24,20 @@ class TaggedImagesController < ApplicationController
 
   # POST /tagged_images/search
   def search
-    @website = Website.find_by_wcode(params[:website_id])
-    params[:website_id] = @website.id #use true id instead of wcode
-    @tagged_images = TaggedImage.search(params).paginate(:page => params[:page], :per_page => ROWS_PRE_PAGE)
-    #@tagged_images = TaggedImage.search(params)
+    website_info
+    options = { :website_id => @website.id, :keyword => params[:q] }
+    if params[:q].blank?
+      @tagged_images = TaggedImage.find_by_website(@website.id, 'created_at').paginate(:page => params[:page], :per_page => ROWS_PRE_PAGE)
+    else
+      @tagged_images = TaggedImage.search(options).paginate(:page => params[:page], :per_page => ROWS_PRE_PAGE)
+    end
+
     @tagged_images.each { |t| t.count_spots }
-    @keyword = params[:keyword]
-    @order_by = params[:order_by]
+    @keyword = params[:q]
+    #@order_by = params[:order_by]
 
     respond_to do |format|
-      format.js { render 'search' }
+      format.html { render 'index' }
     end
   end
 
@@ -46,6 +54,15 @@ class TaggedImagesController < ApplicationController
       #format.js # show.js.erb
       format.html
     end
+  end
+
+  # GET /tagged_images/1/show_image
+  def show_image
+    tagged_image = TaggedImage.find(params[:id])
+    uri = URI(tagged_image.remote_addr)
+    res = Net::HTTP.get_response(uri)
+    
+    send_data res.body, :type=>"image/jpeg", :disposition=>'inline'
   end
 
   # GET /tagged_images/1/statistics_tagged_image
@@ -85,7 +102,9 @@ protected
 
   def check_website_permission
     website = Website.find_by_wcode(params[:website_id])
-    unless website.present? && website.check_permission(get_current_user)
+    if website.present? && website.check_permission(get_current_user)
+      extend_cookie_expiry(1)
+    else
       respond_to do |format|
         format.html { redirect_to error_path } 
       end

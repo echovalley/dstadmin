@@ -45,7 +45,8 @@ class SpotStatistics < ActiveRecord::Base
 private
 
   def self.default_start_date
-    Date.today - 7
+    #Date.today - 7
+    '2012-1-1'.to_date
   end
 
   def self.default_end_date

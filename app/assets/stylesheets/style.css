@@ -244,7 +244,7 @@ ol.step3 li:first-child{background-color: #cfcfcf;color: #4f4f4f;background-posi
 .valid_right,.valid_wrong{margin-top: 36px;float: left;width: 480px}
 .valid_right h3{color: #64b02e;font-weight: bold}
 .valid_wrong h3{color: #ee322d;font-weight: bold}
-.head_publishsite,.head_mypic{text-align: left;padding: 6px 12px;position: relative}
+.head_publishsite,.head_mypic{text-align: left;padding: 6px 12px;position: relative;height: 100px}
 .head_publishsite ul{margin-top: 2px}
 .head_publishsite a{padding-left: 24px;font-weight: bold}
 .head_publishsite h1 span{font-size: 12px;margin-left: 8px;border-left: 1px solid #aeaeae;padding-left: 8px}
@@ -517,6 +517,9 @@ a.btn2:active {
 input.size-max{width: 300px}
 .pp_inline { line-height:18px; padding:10px }
 .hide { display:none }
+.btn-back { float:left; margin: 0 0 4px 16px }
+.box{ margin: 9px; padding: 8px; box-shadow: 0 1px 3px rgba(34,25,25,0.4); -webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4); min-height: 290px }
+.boxshadow{ box-shadow: 0 1px 10px rgba(34,25,25,0.4); -webkit-box-shadow: 0 1px 10px rgba(34,25,25,0.4); }
 
 /* -- 12. Icon -- */
 a.icon_edit,a.icon_delete,a.icon_code{height: 12px;background: url(/assets/icon12_action.png) left top no-repeat;padding-left: 16px;font-size: 12px; margin-left: 8px;}

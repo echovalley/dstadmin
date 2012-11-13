@@ -62,7 +62,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       if @product.save
         flash[:success] = '产品保存成功'
-        format.js { redirect_to :action => 'upload', :id => @product.pcode }
+        format.js { redirect_to @product }
       else
         flash[:error] = '产品保存失败'
         format.js { render 'new' }
@@ -170,18 +170,8 @@ class ProductsController < ApplicationController
     end
   end
 
-  # GET /products/1/upload
-  def upload
-    @product = Product.find_by_pcode(params[:id])
-
-    respond_to do |format|
-      format.js
-    end
-  end
-
   # PUT /products/1/upload_avatar
   def upload_avatar
-    puts params
     @product = Product.find_by_pcode(params[:id])
 
     respond_to do |format|

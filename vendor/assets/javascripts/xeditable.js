@@ -35,7 +35,7 @@
       });
     }
 
-    var box_html = '<span class="editable_box" style="display:none"><input type="text" name="value" autocomplete="off" style="width: 200px; height: 20px"><button class="editable_submit">修改</button><button class="editable_cancel">取消</button></span><a href="javascript:void(0)" class="icon_edit">编 辑</a>';
+    var box_html = '<span class="editable_box" style="display:none"><input type="text" name="value" autocomplete="off" style="width: 200px; height: 20px; padding:2px"><button class="editable_submit">修改</button><button class="editable_cancel">取消</button></span><a href="javascript:void(0)" class="icon_edit">编 辑</a>';
     _self.after(box_html);
 
     $('.icon_edit').click(function(e) {

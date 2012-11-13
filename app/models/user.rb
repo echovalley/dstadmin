@@ -85,6 +85,7 @@ class User < ActiveRecord::Base
     user_code
   end
 
+
   private
 
 end
