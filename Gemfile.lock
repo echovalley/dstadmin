@@ -84,7 +84,6 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (>= 0.0.2)
       mime-types
-    pg (0.14.0)
     polyglot (0.3.3)
     rack (1.4.1)
     rack-cache (1.2)
@@ -150,7 +149,6 @@ DEPENDENCIES
   mysql2
   nokogiri
   paperclip (~> 3.0)
-  pg
   rails (= 3.2.8)
   remotipart (~> 1.0.2)
   rvm-capistrano
