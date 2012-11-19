@@ -26,8 +26,8 @@
     <tbody>
     <% if @products.blank? %>
       <tr>
-        <td colspan=5 style='height:100px;font-size:16px'>找不到 :( <br/>
-          <%= link_to '新建一个？', new_product_path, :remote => true %>
+        <td colspan=5 style='height:100px;font-size:16px'>产品列表为空 <br/>
+          <%= link_to '新建一个', new_product_path, :remote => true %>
         </td>
       </tr>
     <% else %>

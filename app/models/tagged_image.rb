@@ -27,12 +27,12 @@ class TaggedImage < ActiveRecord::Base
   def count_statistics
     ts = TaggedImageStatistics.search(:tagged_image_id=> self.id).first
     ss = SpotStatistics.search(:tagged_image_id => self.id).first
-    self.impression = ts.impression
-    self.click = ts.click
-    self.hover = ts.hover
-    self.spots_impression = ss.impression
-    self.spots_click = ss.click
-    self.income = ss.income
+    self.impression = ts.impression.blank?? 0 : ts.impression
+    self.click = ts.click.blank?? 0 : ts.click
+    self.hover = ts.hover.blank?? 0 : ts.hover
+    self.spots_impression = ss.impression.blank?? 0 : ss.impression
+    self.spots_click = ss.click.blank?? 0 : ss.click
+    self.income = ss.income.blank?? 0 : ss.income
   end
 
   def self.search(options = {})

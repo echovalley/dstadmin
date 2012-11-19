@@ -8,7 +8,7 @@ module ApplicationHelper
   def top_menu
     if session[:curadv].present?
       p = content_tag(:li, link_to('我的首页', dashboard_advertiser_path), :class => current_page?(:controller => 'advertisers', :action => 'dashboard') ? 'nav_ad_select' : nil)
-      p << content_tag(:li, link_to('我的产品', products_path), :class => current_page?(:controller => 'products') ? 'nav_ad_select' : nil)
+      p << content_tag(:li, link_to('我的产品', products_path), :class => (params[:controller] == 'products') ? 'nav_ad_select' : nil)
       #p << content_tag(:li, link_to('我的图片', '#'))
       #p << content_tag(:li, link_to('怎么使用', '#'))
     else
