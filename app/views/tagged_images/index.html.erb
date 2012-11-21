@@ -4,12 +4,12 @@
   <%= render 'website' %>
   <%#= tagged_images_bar(@website.wcode, @website.tagged_images_number, @website.untagged_images_number) %>
 
-  <div class="bg_green relative">
+  <div class="bg_green">
     <%= form_tag(search_website_tagged_images_path(@website.wcode), :method => 'get', :id => 'frmSearch') do %>
-      <div class="relative">
+      <div class="img_search">
       <%#= select_tag :order_by, options_for_select({'按上传时间排序 ' => 1, '按名称排序' => 2}, @order_by.blank? ? 1 : @order_by) %>
       <%= text_field_tag 'q', @keyword.blank? ? '' : @keyword, :placeholder => '输入标题关键词来过滤' %>
-      <%#= button_tag '搜索', :class => 'icon_search absolute', :id => 'btnSearch' %>
+      <%#= button_tag '搜索', :class => 'icon_search', :id => 'btnSearch' %>
       <%= link_to '', 'javascript:void(0)', :id => 'btnSearch', :class => 'icon_search absolute' %>
       </div>
     <% end %>
@@ -62,5 +62,6 @@
       var form = $(this).closest("form");
       form.submit();
     });
+
   });
 </script>

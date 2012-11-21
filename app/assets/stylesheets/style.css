@@ -196,8 +196,8 @@ input.captcha_field{width: 160px}
 .box_gray_around select{width: 268px;border: 1px solid #b5b5b5}
 .box_gray_around input[type="submit"]{width: 180px}
 .box_gray_around span{padding: 0px 0px 0px 24px}
-.bg_green{background: -webkit-linear-gradient(#77b631,#62a420);
-    background: -moz-linear-gradient(#77b631,#62a420);color: #fff;padding: 3px 0px;border-top: 1px solid #fff}
+.bg_green{background:#62a420 -webkit-linear-gradient(#77b631,#62a420);
+    background:#62a420 -moz-linear-gradient(#77b631,#62a420);color: #fff;padding: 5px 0px;border-top: 1px solid #fff}
 .bg_gray{background: -webkit-linear-gradient(#e6e6e6,#d1d1d1);
     background: -moz-linear-gradient(#e6e6e6,#d1d1d1);padding: 3px 0px;border-top: 1px solid #fff;border-bottom: 1px solid #bababa}
 .mysetting span {
@@ -367,6 +367,11 @@ span.noborderleft,.tag a.noborderleft{border-left: none;padding-left: 0px}
 .product_addnew .notice_form{padding-left: 72px}
 .product_addnew ul li input.width1{width: 120px;margin-left: 6px}
 #statistics_info{float: none}
+.verify h4{margin: 8px 0px}
+.verify .btn_green{margin: 6px 0px}
+.verify input[type="url"]{width: 420px}
+.img_search{width: 400px;margin: 0 auto;position: relative}
+.img_search input{width: 400px}
 /* -- 10. FORMS -- */
 
 input[type="url"],input[type="text"],input[type="date"],input[type="email"],input[type="password"],input[type="number"],input[type="date"], textarea,select{ color:#666; font-family:Arial, Helvetica, sans-serif; font-size:12px; border:1px solid #bebebe;background: #fbfbfb; padding:7px 4px; 
@@ -525,8 +530,12 @@ input.size-max{width: 300px}
 .box_info{background:#F2F0F0;padding: 4px 8px;box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.2)}
 .box_info span{width: 66px;margin-left: 1px;text-align: center;display: inline-block;padding: 0px;font-size: 12px}
 .box_info span:first-child{margin-left: 0px}
-.boxshadow{ box-shadow: 0 1px 10px rgba(34,25,25,0.4); -webkit-box-shadow: 0 1px 10px rgba(34,25,25,0.4); }
-
+.img_detail{ width:700px;padding:10px;box-shadow: 0 1px 10px rgba(34,25,25,0.4); -webkit-box-shadow: 0 1px 10px rgba(34,25,25,0.4); margin:0 auto}
+.img_detail ul li{text-align: left;font-size: 12px}
+.img_detail ul li label{color: #999;font-size: 12px}
+#imgWrap{width: 700px;background: #f5f5f5;margin: 10px 0}
+.title_img span{font-size: 13px;font-weight: bold}
+#product_avatar{vertical-align: top;margin: 36px 0px 0px 12px}
 /* -- 12. Icon -- */
 a.icon_edit,a.icon_delete,a.icon_code{height: 12px;background: url(/assets/icon12_action.png) left top no-repeat;padding-left: 16px;font-size: 12px; margin-left: 8px;}
 a.icon_delete{background-position: left -28px}
@@ -534,7 +543,8 @@ a.icon_code{background-position: left -58px}
 a.icon_edit:hover{background-position: left -15px}
 a.icon_code:hover{background-position: left -71px}
 a.icon_delete:hover{background-position: left -43px;color: #cc3333}
-a.icon_search{background: url(/assets/icon16.png) no-repeat -20px top;width: 16px;height: 16px;display: inline-block;right: 16px;top:14px}
+a.icon_search{background: url(/assets/icon16.png) no-repeat -20px top;width: 16px;height: 16px;display: inline-block; right: -4px;top: 8px;}
+.quick_search a.icon_search{right:8px;top:14px}
 a.icon_upload,a.icon_edit_pic,a.icon_addproduct,a.icon_manageproduct,a.icon_managepic{background: url(/assets/icon16.png) no-repeat left -50px;padding-left: 16px;}
 a.icon_edit_pic{background-position: left -66px}
 a.icon_upload:hover{background-position: left -18px}

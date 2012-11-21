@@ -29,10 +29,10 @@ class WebsitesController < ApplicationController
   # GET /websites/1/edit
   def edit
     @website = Website.find_by_wcode(params[:id])
+    @websites = my_websites
+    @website_categories = WebsiteCategory.all
     respond_to do |format|
-      @websites = my_websites
-      @website_categories = WebsiteCategory.all
-      format.html { render 'properties' }
+      format.html { render 'edit_modal', :layout => false }
     end
   end
 
@@ -63,7 +63,7 @@ class WebsitesController < ApplicationController
     respond_to do |format|
       if @website.verified
         flash[:success] = '网站资料已保存'
-        format.html { redirect_to :action => 'edit', :id => @website.wcode }
+        format.html { redirect_to :action => 'index' }
       else
         format.html { redirect_to :action => 'pre_verify', :id => @website.wcode }
       end
@@ -79,7 +79,7 @@ class WebsitesController < ApplicationController
       else
         flash[:error] = '删除失败'
       end
-        format.html { redirect_to :action => 'index' }
+      format.html { redirect_to :action => 'index' }
     end
   end
 
@@ -119,13 +119,17 @@ class WebsitesController < ApplicationController
   end
 
   # GET /websites/1/code
-  def code 
+  def code
     @website = Website.find_by_wcode(params[:id])
 
     respond_to do |format|
       if @website.verified
         @websites = my_websites
-        format.html { render 'code' }
+        if params.has_key?('m')
+          format.html { render 'code_modal', :layout => false }
+        else
+          format.html { render 'code' }
+        end
       else
         format.html { redirect_to error_path } 
       end

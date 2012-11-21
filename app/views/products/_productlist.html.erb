@@ -1,7 +1,7 @@
 <aside class="ad_left">
 <h4 class="icon_product">产 品
   <%= link_to '(+添加新产品)', new_product_path, :remote => true %>
-  <%= link_to '(刷新)', products_path, :remote => true %>
+  <%= link_to(content_tag('i', '', :class =>"icon-refresh"), products_path, :remote => true) %>
   <!--i><em></em></i-->
   </h4>
   <div class="quick_search bg_green relative">
@@ -63,7 +63,7 @@
   </div>
   <% end %>
   
-  <div>产品总数：<%= @total_number %>，包含锚点的产品数：<%= @spotted_number %></div>
+  <div>产品总数：<%= @total_number %>，含锚点产品：<%= @spotted_number %></div>
 </aside>
 
 <div class="modal hide" id="set_status_modal">

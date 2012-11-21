@@ -1,0 +1,40 @@
+<%= javascript_include_tag 'ZeroClipboard.min' %>
+
+<div class="modal fade" id="code">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>代码</h3>
+  </div>
+  <div class="modal-body">
+    <div class="">
+      <p>请将此段代码复制到您网站下任意页面的body标签前（建议放在head中），则即可在包含此段代码的页面上进行打点操作。</p>
+      <pre class="site_code"><%= h code(@website.wcode) %></pre>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="btn btn-success" onclick="javascript:copy2Clipboard()">复制代码</a>
+    <a class="btn" data-dismiss="modal">关 闭</a>
+  </div>
+<div id="d_clip_container" style="position:relative">
+   <div id="d_clip_button">Copy to Clipboard</div>
+</div>
+</div>
+
+
+<script>
+  function copy2Clipboard() {
+    var text = $('pre').html();
+    //alert (text);
+    ZeroClipboard.setMoviePath('/ZeroClipboard.swf');
+    ZeroClipboard.setMoviePath('/ZeroClipboard10.swf');
+    var clip = new ZeroClipboard.Client();
+    clip.setText('abc');
+clip.addEventListener( 'load', function(client) {
+ alert( "movie is loaded" );
+} );
+clip.addEventListener( 'complete', function(client, text) {     //复制完成后的监听事件
+  alert ('cimpl');
+});    
+    clip.glue('d_clip_button', 'd_clip_container');
+  }
+</script>

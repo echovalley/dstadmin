@@ -6,7 +6,7 @@
   <ul>
     <p>验证网站: <%= @website.url %></p>
     <li>1) 首先点击“生成HTML文件”，系统将生成一个随机HTML文件。</li>
-    <li><%= link_to '生成HTML文件', create_verify_file_website_path, :class => 'btn_green' %></li>
+    <li><%= link_to '生成HTML文件', create_verify_file_website_path, :class => 'btn_green size-m' %></li>
     <li>2) 将此文件上传至您服务器(网站所填的域名)下的任意位置，保证该地址可以通过互联网访问。然后在下面的输入框填入访问路径，比如http://www.adspot.cn/verify/WS02K5S75W20120802015537.html. 最后点击“验证”。</li>
     <%= form_tag(verify_process_website_path, :id => 'frmVerify') do %>
       <li>

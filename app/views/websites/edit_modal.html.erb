@@ -1,0 +1,13 @@
+<div class="modal hide fade" id="edit_website">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>修改网站信息</h3>
+  </div>
+  <div class="modal-body">
+    <%= render 'website_form' %>
+  </div>
+  <div class="modal-footer">
+    <a class="btn btn-success" onclick="$('.modal-body > form').submit();">修 改</a>
+    <a class="btn" data-dismiss="modal">关 闭</a>
+  </div>
+</div>

@@ -21,10 +21,39 @@
 
 $(document).ready(function() {
   $('.pagination a').attr('data-remote', 'true');
+
   $('li input').focus(function() {
     var noticeform = $(this).closest('li').children('.notice_form');
     noticeform.children(":not(.normal)").remove();
     noticeform.children(".normal").show();
+  });
+
+  //Modal+Ajax form
+  $('[data-toggle="modal"]').live('click', function(e) {
+    e.preventDefault();
+    var url = $(this).attr('href');
+    var _top = $(document).scrollTop();
+    if (url.indexOf('#') == 0) {
+      $(url).modal('open');
+    } else {
+      $.get(url, function(data) {
+        $('.modal').remove();
+        $(data).filter('.modal').modal();
+        $('.modal input:text:visible:first').focus();
+        $(document).scrollTop(_top);
+        var js = $(data).filter('script');
+        if (js) {
+          setTimeout(function(){ $(document).append(js); }, 500);
+        }
+      });
+    }
+  });
+
+  $('[data-dismiss="modal"]').live('click', function(e) {
+    e.preventDefault();
+    setTimeout(function(){
+      $('.modal-backdrop').remove();
+    }, 300);
   });
 });
 

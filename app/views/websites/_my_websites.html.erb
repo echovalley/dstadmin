@@ -20,10 +20,10 @@
         <td><%= number_format(w.spots_number) %></td>
         <td><%= number_format(w.total_income) %></td>
         <td>
-          <%= link_to '修改信息', edit_website_path(w.wcode), :class => 'icon_edit' %>
+          <%= link_to '修改信息', edit_website_path(w.wcode), :class => 'icon_edit', :role => 'button', :'data-toggle' => 'modal' %>
           <%= link_to '删除网站', destroy_website_path(w.wcode), :method => :delete, :confirm => '确定删除？所有数据都将被删除', :class => 'icon_delete' %>
           <% if w.status == Website::STATUS_VERIFIED %>
-            <%= link_to '获取代码', code_website_path(w.wcode), :class => 'icon_code' %>
+            <%= link_to '获取代码', code_website_path(w.wcode) + '?m', :class => 'icon_code', :'data-toggle' => 'modal' %>
           <% end %>
         </td>
       </tr>

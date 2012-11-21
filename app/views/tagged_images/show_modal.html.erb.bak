@@ -1,0 +1,99 @@
+<%= javascript_include_tag 'xeditable' %>
+
+<div class="modal hide">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>图片详情</h3>
+  </div>
+  <div class="modal-body">
+    <div class="content">
+      <div class="img_detail">
+        <ul>
+          <li class="title_img"><span class='xeditable' name='title'><label>标题：</label><%= @tagged_image.title %></span></li>
+          <li><label>图片尺寸：</label><%= @tagged_image.width %>*<%= @tagged_image.height %></li>
+          <!--li><label>图片路径：</label><%#= @tagged_image.remote_addr %></li-->
+          <li><label>标注页面：</label><%= link_to @tagged_image.locate_url, @tagged_image.locate_url, :target => '_blank' %></li>
+          <li>
+          <label>该图片被标注了<em><%= @tagged_image.spots.length %></em>个锚点</label>
+          <% if @products.present? %>
+            <label>该图片关联了<em><%= @products.length %></em>个产品：</label>
+            <% @products.each do |p| %>
+              <%= link_to "#{p.pname} (计价模式：#{product_pricing(p.pricing)}，单价：#{p.unit_price})", '', :class => 'noborderleft' %>
+            <% end %>
+          <% end %>
+          </li>
+        </ul>
+        <div id="imgWrap">
+          <%#= image_tag(@tagged_image.remote_addr, :alt => @tagged_image.title, ) %>
+          <%= image_tag(show_image_website_tagged_image_path(:id => @tagged_image.id, :website_id => @website.wcode), :alt => @tagged_image.title,  :width => @tagged_image.width, :height => @tagged_image.height, :original_path => @tagged_image.remote_addr) %>
+        </div>
+
+        <div class="tabs tab_table">
+          <ul>
+            <li class="ui-corner-top ui-tabs-selected">
+            <%= link_to '图片数据统计', 'javascript:void(0)', :title => '图片数据统计', :class => 'link_statistics', :by => 'i' %>
+            </li>
+            <li class="ui-corner-top">
+            <%= link_to '锚点数据统计', 'javascript:void(0)', :title => '锚点数据统计', :class => 'link_statistics', :by => 's' %>
+            </li>
+          </ul>
+          <fieldset>
+            <label>日期选择:</label>
+            <%= select_tag :data_range, options_for_select({'昨天' => 1, '最近7天' => 2, '最近15天' => 3 , '最近30天' => 4 }, 2) %>.
+            <input id="dt_start" type="date" value="<%= (Date.today - 7) %>" class="date" /> - <input id="dt_end" type="date" value="<%= Date.today %>" class="date" />
+          </fieldset>
+        </div>
+        <div id="statistics_info">
+          <%= render 'statistics_tagged_image' %>
+        </div>
+        <%= javascript_tag(adspot(@website.wcode, 1)) %>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <a class="btn" data-dismiss="modal">关 闭</a>
+  </div>
+</div>
+
+<script>
+  var dt_start_arr = new Array;
+  dt_start_arr[1] = "<%= (Date.today - 1).to_s(:db) %>";
+  dt_start_arr[2] = "<%= (Date.today - 7).to_s(:db) %>";
+  dt_start_arr[3] = "<%= (Date.today - 15).to_s(:db) %>";
+  dt_start_arr[4] = "<%= (Date.today - 30).to_s(:db) %>";
+  var dt_end = "<%= Date.today.to_s(:db) %>";
+
+  $("a.link_statistics").click(function() {
+    $(this).parent().removeClass("ui-tabs-selected");
+    $(this).parent().siblings().addClass("ui-tabs-selected");
+    refresh_statistics();
+  });
+
+  $("#data_range").change(function() {
+    $("#dt_start").val(dt_start_arr[$(this).val()]);
+    $("#dt_end").val(dt_end);
+    refresh_statistics();
+  });
+
+
+  $("fieldset :date").change(function() {
+    refresh_statistics();
+  });
+
+  function refresh_statistics() {
+    by = $(".ui-tabs-selected a.link_statistics").attr("by");
+    var t = (by == 's') ? "<%= statistics_tagged_image_website_tagged_image_path(:id => @tagged_image.id, :website_id => @tagged_image.website.wcode) %>" : "<%= statistics_spots_website_tagged_image_path(:id => @tagged_image.id, :website_id => @tagged_image.website.wcode) %>";
+    t += "?start_date=" + $("#dt_start").val() + "&end_date=" + $("#dt_end").val();
+    //alert (t);
+    $.get(t, function() {
+    });
+  }
+
+  $('.xeditable').editable("<%= update_title_website_tagged_image_path %>");
+
+  //$('#closeBtn').click(function(e) {
+  $('[data-dismiss="modal"]').click(function(e) {
+    alert ($(this));
+$('.modal').modal('hide');
+  });
+</script>
