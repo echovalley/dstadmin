@@ -52,8 +52,8 @@ class TaggedImagesController < ApplicationController
 
     respond_to do |format|
       #format.js # show.js.erb
-      #format.html
-      format.html { render 'show_modal', :layout => false }
+      format.html
+      #format.html { render 'show_modal', :layout => false }
     end
   end
 

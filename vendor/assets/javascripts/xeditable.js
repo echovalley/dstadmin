@@ -24,13 +24,13 @@
       cancel_edit();
       var submit_url = target + '?' + _self.attr('name') + '=' + encodeURIComponent(newval);
       $.get(submit_url, function(returnval) {
-        var label_succ = '<span style="width:50px" class="alert alert-success"><button data-dismiss="alert" class="close">x</button><h5 id="notice" class="acenter">成功修改</h5></span>';
-        var label_fail = '<span style="width:50px" class="alert alert-error"><button data-dismiss="alert" class="close">x</button><h5 id="notice" class="acenter">修改失败</h5></span>';
+        var label_succ = '<div class="alert alert-success"><button data-dismiss="alert" class="close">x</button><h5 id="notice" class="acenter">成功修改</h5></div>';
+        var label_fail = '<div class="alert alert-error"><button data-dismiss="alert" class="close">x</button><h5 id="notice" class="acenter">修改失败</h5></div>';
         if (returnval == 1) {
-          _self.after(label_succ);
+          _self.closest('div').prepend(label_succ);
           _self.text(newval);
         } else {
-          _self.after(label_fail);
+		  _self.closest('div').prepend(label_fail);
         }
       });
     }

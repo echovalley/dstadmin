@@ -1,6 +1,6 @@
 <% @tagged_images.each do |t| %>
   <div class="box">
-    <%= link_to(image_tag(t.get_thumbnail_path, :alt => t.title, :onError => "this.src='#{default_thumbnail(200)}'", :width => 206, :excluded_spot => true), website_tagged_image_path(:id => t.id, :website_id => @website.wcode), :title => t.title, :'data-toggle' => 'modal') %>
+    <%= link_to(image_tag(t.get_thumbnail_path, :alt => t.title, :onError => "this.src='#{default_thumbnail(200)}'", :width => 206, :excluded_spot => true), website_tagged_image_path(:id => t.id, :website_id => @website.wcode), :title => t.title) %>
       <h5><%= t.title %></h5></li>
       <span><%= t.created_at.strftime("%Y-%m-%d") %></span>
       <div class="box_info">
